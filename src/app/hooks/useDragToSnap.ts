@@ -30,7 +30,7 @@ export function useDragToSnap({
 }: UseDragToSnapProps): DragSnapControls {
   const [currentSnapIndex, setCurrentSnapIndex] = useState(initialSnap);
   const [isDragging, setIsDragging] = useState(false);
-  
+
   // 드래그 시작 상태를 추적하는 Ref들
   const dragState = useRef({
     startY: 0,
@@ -63,10 +63,10 @@ export function useDragToSnap({
   // 2. 드래그 종료 (Pointer Up)
   const handlePointerUp = useCallback((e: PointerEvent) => {
     if (!isDragging || !sheetRef.current) return;
-    
+
     setIsDragging(false);
     sheetRef.current.style.userSelect = '';
-    
+
     const dragDistance = e.clientY - dragState.current.startY;
     let nextIndex = currentSnapIndex;
 
@@ -76,15 +76,15 @@ export function useDragToSnap({
     } else if (dragDistance < -50) { // 위로 50px 이상 드래그 (높은 스냅으로)
         nextIndex = Math.min(snapPoints.length - 1, currentSnapIndex + 1);
     }
-    
+
     setCurrentSnapIndex(nextIndex);
 
     // 최종 스냅 위치로 애니메이션 (CSS transition 재활성화)
     sheetRef.current.style.transition = 'transform 0.3s ease-out, height 0.3s ease-out';
     sheetRef.current.style.transform = 'translateY(0)'; // translate 리셋
-    
+
     setTimeout(() => {
-        if(sheetRef.current) sheetRef.current.style.transition = '';
+      if(sheetRef.current) sheetRef.current.style.transition = '';
     }, 300);
 
   }, [isDragging, currentSnapIndex, snapPoints, onClose, sheetRef]);
@@ -96,16 +96,16 @@ export function useDragToSnap({
 
     const currentTransform = sheetRef.current.style.transform;
     const currentY = currentTransform ? parseFloat(currentTransform.match(/translateY\(([^)]+)px/)?.[1] || '0') : 0;
-    
+
     setIsDragging(true);
-    
+
     // dragState Ref에 초기값 저장
     dragState.current = {
         startY: e.clientY,
         startSheetY: currentY,
         currentY: currentY,
     };
-    
+
     // 드래그 중 transition 끄기
     sheetRef.current.style.transition = 'none';
     sheetRef.current.style.userSelect = 'none';
@@ -126,10 +126,10 @@ export function useDragToSnap({
     };
   }, [isOpen, handlePointerMove, handlePointerUp]);
 
-  return { 
-    handlePointerDown, 
-    isDragging, 
+  return {
+    handlePointerDown,
+    isDragging,
     currentSnapIndex,
-    setSnapIndex: setCurrentSnapIndex 
+    setSnapIndex: setCurrentSnapIndex
   };
 }

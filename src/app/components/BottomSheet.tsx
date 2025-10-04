@@ -83,29 +83,29 @@ export default function BottomSheet({
       >
         {/* 헤더 (드래그 시작점) */}
         <div
-          className="flex justify-center p-3 border-b border-border cursor-grab touch-none"
-          onPointerDown={handlePointerDown} // ✨ 훅에서 받은 핸들러 연결
+          className="flex justify-center p-3 border-border cursor-grab touch-none"
+          onPointerDown={handlePointerDown} // 훅에서 받은 핸들러 연결
         >
-          <div className="w-10 h-1 bg-muted rounded-full" />
-          <button
+          <div className="w-20 h-1 bg-[#D9D9D9] rounded-full" />
+          {/* <button
             onClick={handleCloseButtonClick}
             className="absolute right-4 top-2 text-muted-foreground hover:text-foreground"
           >
             &times;
-          </button>
+          </button> */}
         </div>
 
         {/* 컨텐츠 영역 및 스냅 조작 버튼 (기존과 동일) */}
-        <div className="flex-grow overflow-y-auto p-4">
+        <div className="flex-grow overflow-y-auto p-2">
           {children}
         </div>
 
-        {snapPoints.length > 1 && (
+        {/* {snapPoints.length > 1 && (
           <div className="flex justify-around p-2 border-t border-border">
             {snapPoints.map((_, index) => (
               <button
                 key={index}
-                onClick={() => setSnapIndex(index)} // ✨ 훅에서 받은 setSnapIndex 사용
+                onClick={() => setSnapIndex(index)} // 훅에서 받은 setSnapIndex 사용
                 className={`px-3 py-1 rounded-md text-sm ${
                   currentSnapIndex === index
                     ? 'bg-primary text-primary-foreground'
@@ -116,7 +116,7 @@ export default function BottomSheet({
               </button>
             ))}
           </div>
-        )}
+        )} */}
       </div>
     </>
   );

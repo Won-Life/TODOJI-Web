@@ -73,11 +73,6 @@ export function useDragToSnap({
     // --- 스냅 로직 ---
     if (dragDistance > 50) { // 아래로 50px 이상 드래그 (닫거나 낮은 스냅으로)
         nextIndex = Math.max(0, currentSnapIndex - 1);
-        if (nextIndex === 0 && snapPoints[0] < 0.3 && dragDistance > 100) { // 낮은 스냅에서 더 내리면 닫기
-            onClose();
-            sheetRef.current.style.transform = 'translateY(100%)';
-            return;
-        }
     } else if (dragDistance < -50) { // 위로 50px 이상 드래그 (높은 스냅으로)
         nextIndex = Math.min(snapPoints.length - 1, currentSnapIndex + 1);
     }

@@ -9,7 +9,7 @@ interface CustomBottomSheetProps {
   initialSnap?: number; // [선택 사항] 초기 스냅 포인트 인덱스
 }
 
-export default function CustomBottomSheet({
+export default function BottomSheet({
   isOpen,
   onClose,
   children,

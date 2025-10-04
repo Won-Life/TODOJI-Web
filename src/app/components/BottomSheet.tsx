@@ -43,14 +43,14 @@ export default function BottomSheet({
 
     // 2. 시트를 최소 스냅 포인트로 이동시킵니다.
     setSnapIndex(minSnapIndex); 
-    
+
     // 3. CSS 애니메이션이 완료될 시간(300ms)을 기다린 후, 
     //    부모 컴포넌트의 onClose(isOpen=false)를 호출하여 시트를 완전히 닫습니다 (translate-y-full).
     setTimeout(() => {
         onClose();
     }, 300); // useDragToSnap의 transition duration과 맞춤
   }, [snapPoints, setSnapIndex, onClose]);
-  
+
   // 최종 시트 높이 (스냅 포인트에 따라)
   const finalHeight = `${snapPoints[currentSnapIndex] * 100}vh`;
 

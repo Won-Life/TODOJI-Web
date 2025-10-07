@@ -16,6 +16,7 @@ interface UseDragToSnapProps {
   initialSnap: number;
   onClose: () => void;
   isOpen: boolean;
+  onSnapChange: (ratio: number) => void;
 }
 
 // 뷰포트 높이(vh)를 픽셀(px)로 변환하는 헬퍼 함수
@@ -27,6 +28,7 @@ export function useDragToSnap({
   initialSnap,
   onClose,
   isOpen,
+  onSnapChange,
 }: UseDragToSnapProps): DragSnapControls {
   const [currentSnapIndex, setCurrentSnapIndex] = useState(initialSnap);
   const [isDragging, setIsDragging] = useState(false);
@@ -78,6 +80,7 @@ export function useDragToSnap({
     }
 
     setCurrentSnapIndex(nextIndex);
+    onSnapChange(snapPoints[nextIndex]);
 
     // 최종 스냅 위치로 애니메이션 (CSS transition 재활성화)
     sheetRef.current.style.transition = 'transform 0.3s ease-out, height 0.3s ease-out';
@@ -87,7 +90,7 @@ export function useDragToSnap({
       if(sheetRef.current) sheetRef.current.style.transition = '';
     }, 300);
 
-  }, [isDragging, currentSnapIndex, snapPoints, onClose, sheetRef]);
+  }, [isDragging, currentSnapIndex, snapPoints, onClose, sheetRef, onSnapChange]);
 
 
   // 3. 드래그 시작 (Pointer Down)

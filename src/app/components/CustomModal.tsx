@@ -4,16 +4,19 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 
+// TODO: 색상을 글로벌 스타일 변수로 변경할 것
 const style = {
-  position: 'absolute',
+  position: 'absolute' as 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
+  width: '90%',
+  maxWidth: 400,
+  backgroundColor: '#FFF',
+  borderRadius: '15px',
+  boxShadow: '0 10px 15px rgba(0, 0, 0, 0.1)',
+  padding: '15px',
+  outline: 'none',
 };
 
 interface CustomModalProps {

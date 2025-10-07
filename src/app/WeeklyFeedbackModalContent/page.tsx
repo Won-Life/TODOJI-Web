@@ -3,7 +3,7 @@
 import { useState } from "react";
 import WeeklyFeedbackModalContent from "../components/WeeklyFeedbackModalContent"
 
-export default function page () {
+export default function Page () {
   const [isClose, setIsClose] = useState(false);
 
   const closeModal = () => {

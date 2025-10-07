@@ -6,7 +6,7 @@ import Modal from '@mui/material/Modal';
 
 // TODO: 색상을 글로벌 스타일 변수로 변경할 것
 const style = {
-  position: 'absolute' as 'absolute',
+  position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',

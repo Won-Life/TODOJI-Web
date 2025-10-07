@@ -54,7 +54,7 @@ export function useDragToSnap({
     if (!isDragging || !sheetRef.current) return;
 
     const deltaY = e.clientY - dragState.current.startY;
-    const newY = Math.max(0, dragState.current.startSheetY + deltaY); 
+    const newY = Math.max(0, dragState.current.startSheetY + deltaY);
     dragState.current.currentY = newY; // 현재 Y 위치 업데이트
 
     // 시각적 위치 업데이트

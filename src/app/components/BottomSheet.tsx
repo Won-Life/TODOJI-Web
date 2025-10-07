@@ -12,7 +12,7 @@ interface CustomBottomSheetProps {
 
 export default function BottomSheet({
   isOpen,
-  onClose,
+  onClose = () => {},
   children,
   snapPoints = [0.04, 0.35, 1],
   initialSnap = 0,

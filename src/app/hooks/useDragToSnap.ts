@@ -11,7 +11,7 @@ interface DragSnapControls {
 }
 
 interface UseDragToSnapProps {
-  sheetRef: React.RefObject<HTMLDivElement>;
+  sheetRef: React.RefObject<HTMLDivElement | null>;
   snapPoints: number[]; // vh 비율 (예: 0.25, 0.5, 1)
   initialSnap: number;
   onClose: () => void;

@@ -28,7 +28,12 @@ const formatDate = (date: Date): string => {
   return `${month}월 ${day}일 ${weekday}요일`;
 };
 
-export default function TodoListContent() {
+interface TodoListContentProps {
+  onTodoClick: (todo: TodoItem) => void;
+  onCreateClick: () => void;
+}
+
+export default function TodoListContent({ onTodoClick, onCreateClick }: TodoListContentProps) {
   const [todos, setTodos] = useState<TodoItem[]>(initialTodos);
 
   // 1. 할 일 상태 토글 및 리스트 이동 처리
@@ -91,7 +96,7 @@ export default function TodoListContent() {
               }
               cursor-pointer
             `}
-            onClick={() => handleToggle(todo.id)}
+            onClick={() => onTodoClick(todo)}
           >
             {/* 할 일 텍스트 */}
             <div className="flex-grow min-w-0 pr-4 truncate">
@@ -108,7 +113,13 @@ export default function TodoListContent() {
               </span>
 
               {/* 체크박스 아이콘 */}
-              <div className="text-xl">
+              <div
+                className="text-xl"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleToggle(todo.id);
+                }}
+              >
                 {todo.isCompleted
                   ? <FaCheckSquare className="text-primary" />
                   : <FaRegSquare className="text-foreground/70" />
@@ -119,7 +130,9 @@ export default function TodoListContent() {
         ))}
 
         {/* 새 항목 추가 버튼 (점선 배경) */}
-        <div className="flex items-center justify-center p-3 mt-2 border-2 border-dashed border-border/70 rounded-lg text-foreground/70">
+        <div className="flex items-center justify-center p-3 mt-2 border-2 border-dashed border-border/70 rounded-lg text-foreground/70"
+          onClick={onCreateClick}
+        >
           <button className="flex items-center space-x-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8"></path><path d="M8 12h8"></path></svg>
           </button>

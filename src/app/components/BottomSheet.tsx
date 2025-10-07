@@ -2,11 +2,7 @@ import React, { useCallback, useRef } from 'react';
 import { useDragToSnap } from '../hooks/useDragToSnap'; // 커스텀 훅 임포트
 
 interface CustomBottomSheetProps {
-  isOpen: boolean; // 시트 열림/닫힘 상태
-  onClose: () => void; // 시트 닫기 콜백 함수
-  children?: React.ReactNode; // 시트 내부에 들어갈 내용
-  snapPoints?: number[]; // [선택 사항] 스냅 포인트 (높이 비율)
-  initialSnap?: number; // [선택 사항] 초기 스냅 포인트 인덱스
+  onSnapChange: (ratio: number) => void; // 스냅 변경 시 컨텍스트 값 업데이트
 }
 
 export default function BottomSheet({
@@ -15,6 +11,7 @@ export default function BottomSheet({
   children,
   snapPoints = [0.04, 0.35, 1],
   initialSnap = 0,
+  onSnapChange,
 }: CustomBottomSheetProps) {
   const sheetRef = useRef<HTMLDivElement>(null);
 
@@ -29,6 +26,7 @@ export default function BottomSheet({
     initialSnap,
     onClose,
     isOpen,
+    onSnapChange,
   });
 
     const handleCloseButtonClick = useCallback(() => {

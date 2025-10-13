@@ -38,7 +38,7 @@ export default function Home() {
     setIsBuildingModalOpen(true);
   }, []);
 
-    const [isActionCreateModalOpen, setIsActionCreateModalOpen] = useState(false);
+  const [isActionCreateModalOpen, setIsActionCreateModalOpen] = useState(false);
 
   const onActionCreationClick = useCallback(() => {
     setIsActionCreateModalOpen(true);

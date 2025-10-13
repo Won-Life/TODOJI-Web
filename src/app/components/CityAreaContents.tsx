@@ -3,14 +3,16 @@
 import React, { useRef, useEffect } from 'react';
 import { useBottomSheetContext } from '../context/BottomSheetContext';
 import { FaChevronDown } from 'react-icons/fa';
+import { BuildingStatus } from './BuildingDetailModalContent';
 
 interface CityAreaProps {
   // 바텀 시트 Context에서 받아오는 값들 (Pixi.js 줌 인/아웃에 사용될 변수)
   mapZoomRatio: number; // 0.0 (시트 최대) ~ 0.96 (시트 최소)
   onVillageClick: (village: string) => void;
+  onBuildingClick: (buildingStatus: BuildingStatus) => void;
 }
 
-const CityAreaContents: React.FC<CityAreaProps> = ({ mapZoomRatio, onVillageClick }: CityAreaProps) => {
+const CityAreaContents: React.FC<CityAreaProps> = ({ mapZoomRatio, onVillageClick, onBuildingClick }: CityAreaProps) => {
   // Pixi.js 줌 레벨을 mapZoomRatio에 따라 조정하는 로직을 여기에 구현할 것
   // 예: const zoomLevel = 1 + mapZoomRatio * 0.5; // 1배에서 1.5배까지 줌 인
   const villageName = '외국계 기업 취업';
@@ -45,15 +47,15 @@ const CityAreaContents: React.FC<CityAreaProps> = ({ mapZoomRatio, onVillageClic
 
         {/* 건물 예시 */}
         <div className="flex justify-around w-full mt-4">
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center" onClick={()=>onBuildingClick('NOT_BUILDABLE')}>
                 <span className="text-4xl">🏠</span>
                 <span className="text-xs text-red-500">아직 못짓는 건물</span>
             </div>
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center" onClick={()=>onBuildingClick('BUILDABLE')}>
                 <span className="text-4xl">🏡</span>
                 <span className="text-xs text-blue-500">지을 수 있는 건물</span>
             </div>
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center" onClick={()=>onBuildingClick('BUILT')}>
                 <span className="text-4xl">🏢</span>
                 <span className="text-xs text-green-500">지어진 건물</span>
             </div>
@@ -64,7 +66,7 @@ const CityAreaContents: React.FC<CityAreaProps> = ({ mapZoomRatio, onVillageClic
 }
 
 // Context에서 값을 받아오는 래퍼 컴포넌트
-export default function CityArea({ onVillageClick }: {onVillageClick: (village: string) => void}) {
+export default function CityArea({ onVillageClick, onBuildingClick }: {onVillageClick: (village: string) => void, onBuildingClick: (buildingStatus: BuildingStatus) => void}) {
   const { mapZoomRatio } = useBottomSheetContext();
-  return <CityAreaContents mapZoomRatio={mapZoomRatio}  onVillageClick={onVillageClick} />;
+  return <CityAreaContents mapZoomRatio={mapZoomRatio}  onVillageClick={onVillageClick} onBuildingClick={onBuildingClick}/>;
 }

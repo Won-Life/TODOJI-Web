@@ -9,6 +9,7 @@ import CustomModal from '../components/CustomModal';
 import { TodoDetailModalContent } from '../components/TodoDetailModalContent';
 import VillageDetailModalContent from '../components/VillageDetailModalContent';
 import NewGoalCreationModalContent from '../components/NewGoalCreationModalContent';
+import BuildingDetailModalContent, { BuildingStatus } from '../components/BuildingDetailModalContent';
 
 export default function Home() {
   const [isSheetOpen, setIsSheetOpen] = useState(true);
@@ -24,10 +25,17 @@ export default function Home() {
 
   const [isVillageModalOpen, setIsVillageModalOpen] = useState(false);
   const [selectedVillage, setSelectedVillage] = useState('');
+  const [isBuildingModalOpen, setIsBuildingModalOpen] = useState(false);
+  const [selectedBuildingStatus, setSelectedBuildingStatus] = useState<BuildingStatus>('NOT_BUILDABLE');
 
   const onVillageClick = useCallback((village: string) => {
     setSelectedVillage(village);
     setIsVillageModalOpen(true);
+  }, []);
+
+  const onBuildingClick = useCallback((buildingStatus: BuildingStatus) => {
+    setSelectedBuildingStatus(buildingStatus);
+    setIsBuildingModalOpen(true);
   }, []);
 
     const [isActionCreateModalOpen, setIsActionCreateModalOpen] = useState(false);
@@ -39,6 +47,7 @@ export default function Home() {
   const handleCloseSheet = () => setIsSheetOpen(false);
   const handleCloseModal = () => setIsModalOpen(false);
   const handleCloseVillageModal = () => setIsVillageModalOpen(false);
+  const handleCloseBuildingModal = () => setIsBuildingModalOpen(false);
   const handleActionCreationClick = () => setIsActionCreateModalOpen(false);
 
   const snapPoints = [0.04, 0.35, 1];
@@ -50,7 +59,7 @@ export default function Home() {
         {/* INFO:
           시트가 올라와도, CityAreaContents는 항상 전체 화면에 렌더링됨
           바텀 시트가 차지하는 만큼 시트 아래에 겹쳐짐 */}
-        <CityAreaContents onVillageClick={onVillageClick}/>
+        <CityAreaContents onVillageClick={onVillageClick} onBuildingClick={onBuildingClick}/>
         <BottomSheet
           isOpen={isSheetOpen}
           onClose={handleCloseSheet}
@@ -76,6 +85,12 @@ export default function Home() {
       <CustomModal isOpen={isActionCreateModalOpen} onClose={handleActionCreationClick}>
         <NewGoalCreationModalContent
           onClose={handleActionCreationClick}
+        />
+      </CustomModal>
+      <CustomModal isOpen={isBuildingModalOpen} onClose={handleCloseBuildingModal}>
+        <BuildingDetailModalContent
+          onClose={handleCloseBuildingModal}
+          status={selectedBuildingStatus}
         />
       </CustomModal>
     </div>

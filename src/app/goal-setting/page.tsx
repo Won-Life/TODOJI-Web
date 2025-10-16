@@ -148,7 +148,8 @@ const FinalGoalStep = () => {
   return (
     <>
       <h2 className="text-2xl font-bold mb-6">나의 최종목표는?</h2>
-      <div className="w-full h-40 bg-gray-100 rounded-lg flex items-center justify-center mb-4">
+    <div className="flex-col bg-white shadow-md rounded-md mb-6">
+      <div className="w-full h-40 rounded-md  flex items-center justify-center">
         <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
         </svg>
@@ -156,11 +157,16 @@ const FinalGoalStep = () => {
       <input
         type="text"
         placeholder="최종 목표를 입력하세요. (ex. 외국계 기업 취업)"
-        className="w-full bg-gray-100 rounded-md p-3 text-sm placeholder-gray-400 mb-6"
+        className="w-full bg-gray-100 rounded-md p-3 text-sm placeholder-gray-400"
       />
-      <div className="w-full">
+    </div>
+    <div className="w-full shadow rounded-md p-3">
+      <div>
         <p className="font-bold mb-2 text-left">마감 기한</p>
-        <div className="flex bg-gray-100 rounded-md p-1 text-sm mb-2">
+      </div>
+
+      <div className="flex-col bg-white shadow rounded-md ">
+        <div className="flex bg-gray-100 rounded-md text-sm p-1">
           <button
             onClick={() => { setDeadlineType('date'); setIsCalendarOpen(false); }}
             className={`flex-1 p-2 rounded-md font-semibold transition-all ${deadlineType === 'date' ? 'bg-white shadow' : 'bg-transparent text-gray-500'}`}>
@@ -177,7 +183,7 @@ const FinalGoalStep = () => {
           <div>
             <div
               onClick={() => setIsCalendarOpen(!isCalendarOpen)}
-              className="flex items-center justify-between bg-gray-100 rounded-md p-3 cursor-pointer">
+              className="flex items-center justify-between p-3 cursor-pointer">
               <span className={isCalendarOpen ? 'text-red-500' : ''}>{startDate ? formatDate(startDate) : '시작일'}</span>
               <span>→</span>
               <span>{endDate ? formatDate(endDate) : '종료일'}</span>
@@ -191,12 +197,13 @@ const FinalGoalStep = () => {
               value={period}
               onChange={(e) => setPeriod(e.target.value)}
               placeholder="ex. 100"
-              className="w-full bg-gray-100 rounded-md p-3 text-sm placeholder-gray-400 text-right pr-12"
-            />
+              className="w-full p-3 text-sm placeholder-gray-400 text-right pr-12"
+              />
             <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">일</span>
           </div>
         )}
       </div>
+    </div>
     </>
 );}
 
@@ -216,8 +223,11 @@ const VillageNameStep = () => (
 );
 
 // 세부 목표 설정 페이지
-const SubGoalStep: FC<{ stepNumber: number }> = ({ stepNumber }) => (
-  <>
+const SubGoalStep: FC<{ stepNumber: number }> = ({ stepNumber }) => {
+  const [criteriaType, setCriteriaType] = useState<'self-check' | 'count'>('self-check');
+
+  return (
+    <>
     <h2 className="text-2xl font-bold">세부목표와 행동</h2>
     <h3 className="text-lg font-semibold text-gray-600 mb-6">세부목표 {stepNumber}</h3>
     <div className="w-full text-left space-y-4">
@@ -226,10 +236,10 @@ const SubGoalStep: FC<{ stepNumber: number }> = ({ stepNumber }) => (
         placeholder={`세부목표를 입력하세요. (15자 이내)`}
         className="w-full bg-gray-100 rounded-md p-3 text-sm placeholder-gray-400"
       />
-      <div className="flex items-center justify-between p-3 border border-gray-200 rounded-md">
+      {/* <div className="flex items-center justify-between p-3 border border-gray-200 rounded-md">
         <label htmlFor="period-check" className="text-sm">마감 기한</label>
         <input type="checkbox" id="period-check" className="form-checkbox h-5 w-5 text-black rounded focus:ring-black" />
-      </div>
+      </div> */}
       <div className="border border-gray-200 rounded-md p-3">
         <div className="flex items-center justify-between">
           <label className="text-sm font-bold">목표 달성 기준</label>
@@ -238,8 +248,26 @@ const SubGoalStep: FC<{ stepNumber: number }> = ({ stepNumber }) => (
           </svg>
         </div>
         <div className="mt-2 flex bg-gray-100 rounded-md p-1 text-sm">
-          <button className="flex-1 bg-white rounded-md p-2 font-semibold shadow">스스로 체크하기</button>
-          <button className="flex-1 p-2 text-gray-500">____회 이상 수행</button>
+          <button
+            onClick={() => setCriteriaType('self-check')}
+            className={`flex-1 rounded-md p-2 font-semibold transition-all ${
+              criteriaType === 'self-check'
+                ? 'bg-white shadow'
+                : 'bg-transparent text-gray-500'
+            }`}
+          >
+            스스로 체크하기
+          </button>
+          <button
+            onClick={() => setCriteriaType('count')}
+            className={`flex-1 rounded-md p-2 transition-all ${
+              criteriaType === 'count'
+                ? 'bg-white shadow font-semibold'
+                : 'bg-transparent text-gray-500'
+            }`}
+          >
+            ____회 이상 수행
+          </button>
         </div>
       </div>
       <div className="border border-gray-200 rounded-md p-3">
@@ -251,8 +279,9 @@ const SubGoalStep: FC<{ stepNumber: number }> = ({ stepNumber }) => (
         </div>
       </div>
     </div>
-  </>
-);
+    </>
+  );
+};
 
 
 // 메인 페이지

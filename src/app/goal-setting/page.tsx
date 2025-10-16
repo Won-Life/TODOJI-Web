@@ -18,29 +18,57 @@ const formatDate = (date: Date): string => {
   return `${year}/${month}/${day}(${dayOfWeek})`;
 }
 
-const ProgressBar: FC<{ currentStep: number }> = ({ currentStep }) => (
-  <div className="flex w-full items-center justify-between px-8">
-    {STEPS.map((step, index) => (
-      <React.Fragment key={step.id}>
-        <div className="flex flex-col items-center">
+const ProgressBar: FC<{ currentStep: number }> = ({ currentStep }) => {
+  return (
+    <div className="w-full relative">
+      {/* 배경 선 (Line) - 전체 길이에 깔림 */}
+      <div className="absolute top-1/2 left-0 right-0 h-[2px] transform -translate-y-1/2 bg-gray-300 mx-4">
+        {/* 진행된 선 (Black Line) */}
+        <div
+          className="h-full bg-black transition-all duration-500"
+          style={{
+            width: `${((currentStep - 1) / (STEPS.length - 1)) * 100}%`,
+          }}
+        />
+      </div>
+
+      {/* 점(Dot)들과 텍스트(Label) 컨테이너 */}
+      <div className="flex w-full items-center justify-between relative px-4">
+        {STEPS.map((step, _) => (
           <div
-            className={`w-2 h-2 rounded-full ${
-              currentStep >= step.id ? 'bg-black' : 'bg-gray-300'
-            }`}
-          ></div>
-          <p className={`mt-2 text-xs ${
-              currentStep >= step.id ? 'text-black font-semibold' : 'text-gray-400'
-            }`}>{step.title}</p>
-        </div>
-        {index < STEPS.length - 1 && (
-          <div className={`flex-1 h-2 mx-2 ${
-              currentStep > step.id ? 'bg-black' : 'bg-gray-300'
-            }`}></div>
-        )}
-      </React.Fragment>
-    ))}
-  </div>
-);
+            key={step.id}
+            className="relative z-10 flex flex-col items-center"
+          >
+            {/* 1. 점 (Dot) - z-index로 선 위에 오게 함 */}
+            <div
+              className={`w-2 h-2 rounded-full ${
+                currentStep >= step.id
+                  ? 'bg-black transition-all delay-300 transition-colors duration-300'
+                  : 'bg-gray-300'
+              }`}
+            />
+
+            {/* 2. 텍스트 레이블 (점의 정중앙 아래에 위치) */}
+            <p
+              className={`
+                absolute top-full mt-2
+                text-[10px] whitespace-nowrap
+                transform -translate-x-1/2 left-1/2
+                ${
+                  currentStep >= step.id
+                    ? 'text-black font-semibold transition-all delay-300 transition-colors duration-300'
+                    : 'text-gray-400'
+                }
+              `}
+            >
+              {step.title}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 const Calendar: FC<{ onDateSelect: (date: Date) => void }> = ({ onDateSelect }) => {
     const today = new Date();

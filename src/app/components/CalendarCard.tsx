@@ -102,10 +102,9 @@ const CalendarCard: React.FC = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white rounded-2xl shadow-lg">
-      {/* 헤더 */}
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl font-bold">{getHeaderText()}</h2>
+    <div className="flex-col gap-y-15">
+      <div className="flex justify-between items-center mb-2 pl-2">
+        <h2 className="text-lg font-bold">{getHeaderText()}</h2>
         <button
           onClick={() => setIsMonthView(!isMonthView)}
           className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
@@ -115,40 +114,42 @@ const CalendarCard: React.FC = () => {
       </div>
 
       {/* 요일 헤더 */}
-      <div className={`grid ${isMonthView ? 'grid-cols-7' : 'grid-cols-7'} gap-2 mb-4`}>
+      <div className={`max-w-md mx-auto px-2 grid ${isMonthView ? 'grid-cols-7' : 'grid-cols-7'} gap-2 mb-1`}>
         {weekDays.map((day) => (
-          <div key={day} className="text-center text-sm text-gray-500 font-medium">
+          <div key={day} className="text-center text-xs text-gray-800 font-medium">
             {day}
           </div>
         ))}
       </div>
 
-      {/* 날짜 그리드 */}
-      <div className={`grid ${isMonthView ? 'grid-cols-7' : 'grid-cols-7'} gap-2`}>
-        {dates.map((date, index) => {
-          const dateKey = formatDateKey(date);
-          const color = colorData[dateKey];
-          const isCurrentMonth = date.getMonth() === selectedDate.getMonth();
+      <div className="max-w-md mx-auto px-2 py-3 bg-white rounded-xl shadow-lg">
+        {/* 날짜 그리드 */}
+        <div className={`grid ${isMonthView ? 'grid-cols-7' : 'grid-cols-7'} gap-2`}>
+          {dates.map((date, index) => {
+            const dateKey = formatDateKey(date);
+            const color = colorData[dateKey];
+            const isCurrentMonth = date.getMonth() === selectedDate.getMonth();
 
-          return (
-            <div key={index} className="flex flex-col items-center">
-              <div
-                className="w-10 h-10 rounded-full flex items-center justify-center mb-1 border-2"
-                style={{
-                  backgroundColor: color || 'transparent',
-                  borderColor: color || '#e5e7eb',
-                }}
-              />
-              <div
-                className={`text-sm ${
-                  isCurrentMonth ? 'text-gray-900' : 'text-gray-400'
-                }`}
-              >
-                {date.getDate()}
+            return (
+              <div key={index} className="flex flex-col items-center">
+                <div
+                  className="w-5 h-5 rounded-full flex items-center justify-center mb-1 border-2"
+                  style={{
+                    backgroundColor: color || 'transparent',
+                    borderColor: color || '#e5e7eb',
+                  }}
+                />
+                <div
+                  className={`text-xs ${
+                    isCurrentMonth ? 'text-gray-900' : 'text-gray-400'
+                  }`}
+                >
+                  {date.getDate()}
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </div>
   );

@@ -74,10 +74,10 @@ const DonutChartStats: React.FC = () => {
   const createDonutSegments = () => {
     const total = getTotalCount();
     let currentAngle = -90; // 12시 방향부터 시작
-    const radius = 80;
-    const innerRadius = 50;
-    const centerX = 100;
-    const centerY = 100;
+    const radius = 140;
+    const innerRadius = 65;
+    const centerX = 150;
+    const centerY = 150;
 
     return data.subGoals.map((subGoal, index) => {
       const subGoalTotal = getSubGoalTotal(subGoal);
@@ -91,7 +91,7 @@ const DonutChartStats: React.FC = () => {
       const y1 = centerY + radius * Math.sin(startAngle);
       const x2 = centerX + radius * Math.cos(endAngle);
       const y2 = centerY + radius * Math.sin(endAngle);
-      
+
       const x3 = centerX + innerRadius * Math.cos(endAngle);
       const y3 = centerY + innerRadius * Math.sin(endAngle);
       const x4 = centerX + innerRadius * Math.cos(startAngle);
@@ -133,7 +133,7 @@ const DonutChartStats: React.FC = () => {
             y={textY}
             textAnchor="middle"
             dominantBaseline="middle"
-            className="text-sm font-medium pointer-events-none"
+            className="text-xs font-small pointer-events-none"
             fill="#1f2937"
           >
             {subGoal.name}
@@ -171,66 +171,66 @@ const DonutChartStats: React.FC = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white rounded-2xl shadow-lg">
-      {/* 헤더 */}
-      <h2 className="text-xl font-bold mb-6">통계</h2>
+    <div>
+      <h2 className="text-xl font-bold pl-2 mb-2">통계</h2>
+      <div className="max-w-md mx-aut p-4 bg-white rounded-xl shadow-md ">
+        {/* 세부목표 수행 횟수 헤더 */}
+        <div className="flex justify-between items-center mb-4">
+          <span className="text-sm font-medium">세부목표 수행 횟수</span>
+          <span className="text-sm text-gray-600">총 {getTotalCount()}회</span>
+        </div>
 
-      {/* 세부목표 수행 횟수 헤더 */}
-      <div className="flex justify-between items-center mb-4">
-        <span className="text-sm font-medium">세부목표 수행 횟수</span>
-        <span className="text-sm text-gray-600">총 {getTotalCount()}회</span>
-      </div>
+        {/* 도넛 차트 */}
+        <div className="flex justify-center mb-3">
+          <svg width="400" height="400" viewBox="0 0 300 300">
+            {createDonutSegments()}
+          </svg>
+        </div>
 
-      {/* 도넛 차트 */}
-      <div className="flex justify-center mb-6">
-        <svg width="200" height="200" viewBox="0 0 200 200">
-          {createDonutSegments()}
-        </svg>
-      </div>
+        {/* 행동 수행 횟수 섹션 */}
+        <div>
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="w-full flex justify-between items-center text-sm font-medium hover:bg-gray-50 p-2 rounded transition-colors"
+          >
+            <span>행동 수행 횟수</span>
+            <div className="flex items-center gap-2">
+              <span className="text-gray-600">총 {getSelectedTotal()}회</span>
+              {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            </div>
+          </button>
 
-      {/* 행동 수행 횟수 섹션 */}
-      <div className="border-t pt-4">
-        <button
-          onClick={() => setIsExpanded(!isExpanded)}
-          className="w-full flex justify-between items-center text-sm font-medium hover:bg-gray-50 p-2 rounded transition-colors"
-        >
-          <span>행동 수행 횟수</span>
-          <div className="flex items-center gap-2">
-            <span className="text-gray-600">총 {getSelectedTotal()}회</span>
-            {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-          </div>
-        </button>
+          {/* 행동 목록 */}
+          {isExpanded && (
+            <div className="mt-4 space-y-4">
+              {getDisplayedSubGoals().map((subGoal, index) => (
+                <div key={index}>
+                  {/* 세부 목표 태그 */}
+                  <div className="inline-block px-3 py-1 rounded-full text-xs font-medium mb-2"
+                      style={{ backgroundColor: subGoal.color, color: 'white' }}>
+                    {subGoal.name}
+                  </div>
 
-        {/* 행동 목록 */}
-        {isExpanded && (
-          <div className="mt-4 space-y-4">
-            {getDisplayedSubGoals().map((subGoal, index) => (
-              <div key={index}>
-                {/* 세부 목표 태그 */}
-                <div className="inline-block px-3 py-1 rounded-full text-xs font-medium mb-2"
-                     style={{ backgroundColor: subGoal.color, color: 'white' }}>
-                  {subGoal.name}
+                  {/* 세부 목표 총합 */}
+                  <div className="flex justify-between items-center mb-2 px-2">
+                    <span className="text-sm"></span>
+                    <span className="text-sm text-gray-600">총 {getSubGoalTotal(subGoal)}회</span>
+                  </div>
+
+                  {/* 행동 목록 */}
+                  <div className="space-y-2">
+                    {subGoal.actions.map((action, actionIndex) => (
+                      <div key={actionIndex} className="flex justify-between items-center px-2 py-1">
+                        <span className="text-sm text-gray-700">{action.name} -</span>
+                        <span className="text-sm text-gray-600">{action.count}회</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                
-                {/* 세부 목표 총합 */}
-                <div className="flex justify-between items-center mb-2 px-2">
-                  <span className="text-sm"></span>
-                  <span className="text-sm text-gray-600">총 {getSubGoalTotal(subGoal)}회</span>
-                </div>
-
-                {/* 행동 목록 */}
-                <div className="space-y-2">
-                  {subGoal.actions.map((action, actionIndex) => (
-                    <div key={actionIndex} className="flex justify-between items-center px-2 py-1">
-                      <span className="text-sm text-gray-700">{action.name} -</span>
-                      <span className="text-sm text-gray-600">{action.count}회</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

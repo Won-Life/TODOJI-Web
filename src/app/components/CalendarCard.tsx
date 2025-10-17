@@ -75,7 +75,7 @@ const CalendarCard: React.FC = () => {
     const firstMonday = getMonday(firstDay);
     const dates: Date[] = [];
 
-    let currentDate = new Date(firstMonday);
+    const currentDate = new Date(firstMonday);
 
     // 6주 표시 (최대)
     for (let week = 0; week < 6; week++) {

@@ -128,104 +128,104 @@ const FeedbackList: React.FC = () => {
   return (
     <div>
       <h2 className="text-xl font-bold pl-2 mb-2">피드백 확인</h2>
-    <div className="max-w-md mx-auto bg-gray-50 min-h-screen">
-      {/* 세부 목표별 카드 */}
-      <div className="space-y-4">
-        {data.subGoals.map((subGoal, subGoalIndex) => (
-          <div key={subGoalIndex} className="bg-white rounded-xl p-4 shadow-sm">
-            {/* 세부 목표 태그 */}
-            <div className="inline-block px-3 py-1 rounded-full text-xs font-medium mb-3"
-                 style={{ backgroundColor: subGoal.color, color: 'white' }}>
-              {subGoal.tag}
+      <div className="max-w-md mx-auto bg-gray-50 min-h-screen">
+        {/* 세부 목표별 카드 */}
+        <div className="space-y-4">
+          {data.subGoals.map((subGoal, subGoalIndex) => (
+            <div key={subGoalIndex} className="bg-white rounded-xl p-4 shadow-sm">
+              {/* 세부 목표 태그 */}
+              <div className="inline-block px-3 py-1 rounded-full text-xs font-medium mb-3"
+                  style={{ backgroundColor: subGoal.color, color: 'white' }}>
+                {subGoal.tag}
+              </div>
+
+              {/* 세부 목표 이름 */}
+              <h3 className="text-lg font-bold mb-3">{subGoal.name}</h3>
+
+              {/* 행동 목록 */}
+              <div className="space-y-2">
+                {subGoal.actions.map((action, actionIndex) => (
+                  <div key={actionIndex} className="bg-white shadow-md -shadow-md rounded-md px-2">
+                    {/* 행동 헤더 */}
+                    <button
+                      onClick={() => toggleAction(subGoalIndex, actionIndex)}
+                      className="w-full flex justify-between items-center py-2 hover:bg-gray-50 rounded transition-colors"
+                    >
+                      <span className="text-sm">{action.name}</span>
+                      {isExpanded(subGoalIndex, actionIndex) ? 
+                        <ChevronUp size={16} className="text-gray-500" /> : 
+                        <ChevronDown size={16} className="text-gray-500" />
+                      }
+                    </button>
+
+                    {/* 피드백 리스트 (펼쳐졌을 때) */}
+                    {isExpanded(subGoalIndex, actionIndex) && (
+                      <div className="space-y-2">
+                        {action.feedbacks.map((feedback, feedbackIndex) => (
+                          <div key={feedbackIndex} className="flex justify-between items-center px-2 py-1 shadow-md rounded-md">
+                            <span className="text-sm text-gray-700">{feedback}</span>
+                            <button
+                              onClick={() => deleteFeedback(subGoalIndex, actionIndex, feedbackIndex)}
+                              className="p-1 hover:bg-red-50 rounded transition-colors"
+                            >
+                              <Trash2 size={14} className="text-gray-400 hover:text-red-500" />
+                            </button>
+                          </div>
+                        ))}
+
+                        {/* 새 피드백 입력 필드 */}
+                        {isAddingFeedback(subGoalIndex, actionIndex) && (
+                          <div className="flex gap-2 mt-2">
+                            <input
+                              type="text"
+                              value={newFeedbackText}
+                              onChange={(e) => setNewFeedbackText(e.target.value)}
+                              onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                  addFeedback(subGoalIndex, actionIndex);
+                                } else if (e.key === 'Escape') {
+                                  cancelAddingFeedback();
+                                }
+                              }}
+                              placeholder="피드백 입력..."
+                              className="flex-1 px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                              autoFocus
+                            />
+                            <button
+                              onClick={() => addFeedback(subGoalIndex, actionIndex)}
+                              className="px-3 py-2 bg-green-500 text-white text-sm rounded-lg hover:bg-green-600 transition-colors"
+                            >
+                              추가
+                            </button>
+                            <button
+                              onClick={cancelAddingFeedback}
+                              className="px-3 py-2 bg-gray-200 text-gray-700 text-sm rounded-lg hover:bg-gray-300 transition-colors"
+                            >
+                              취소
+                            </button>
+                          </div>
+                        )}
+
+                        {/* + 버튼 */}
+                        {!isAddingFeedback(subGoalIndex, actionIndex) && (
+                          <div className="flex justify-center my-2">
+                            <button
+                              onClick={() => startAddingFeedback(subGoalIndex, actionIndex)}
+                              className="w-8 h-8 flex items-center justify-center bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors"
+                            >
+                              <Plus size={16} />
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
-
-            {/* 세부 목표 이름 */}
-            <h3 className="text-lg font-bold mb-3">{subGoal.name}</h3>
-
-            {/* 행동 목록 */}
-            <div className="space-y-2">
-              {subGoal.actions.map((action, actionIndex) => (
-                <div key={actionIndex} className="bg-white shadow-md -shadow-md rounded-md px-2">
-                  {/* 행동 헤더 */}
-                  <button
-                    onClick={() => toggleAction(subGoalIndex, actionIndex)}
-                    className="w-full flex justify-between items-center py-2 hover:bg-gray-50 rounded transition-colors"
-                  >
-                    <span className="text-sm">{action.name}</span>
-                    {isExpanded(subGoalIndex, actionIndex) ? 
-                      <ChevronUp size={16} className="text-gray-500" /> : 
-                      <ChevronDown size={16} className="text-gray-500" />
-                    }
-                  </button>
-
-                  {/* 피드백 리스트 (펼쳐졌을 때) */}
-                  {isExpanded(subGoalIndex, actionIndex) && (
-                    <div className="space-y-2">
-                      {action.feedbacks.map((feedback, feedbackIndex) => (
-                        <div key={feedbackIndex} className="flex justify-between items-center px-2 py-1 shadow-md rounded-md">
-                          <span className="text-sm text-gray-700">{feedback}</span>
-                          <button
-                            onClick={() => deleteFeedback(subGoalIndex, actionIndex, feedbackIndex)}
-                            className="p-1 hover:bg-red-50 rounded transition-colors"
-                          >
-                            <Trash2 size={14} className="text-gray-400 hover:text-red-500" />
-                          </button>
-                        </div>
-                      ))}
-
-                      {/* 새 피드백 입력 필드 */}
-                      {isAddingFeedback(subGoalIndex, actionIndex) && (
-                        <div className="flex gap-2 mt-2">
-                          <input
-                            type="text"
-                            value={newFeedbackText}
-                            onChange={(e) => setNewFeedbackText(e.target.value)}
-                            onKeyDown={(e) => {
-                              if (e.key === 'Enter') {
-                                addFeedback(subGoalIndex, actionIndex);
-                              } else if (e.key === 'Escape') {
-                                cancelAddingFeedback();
-                              }
-                            }}
-                            placeholder="피드백 입력..."
-                            className="flex-1 px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                            autoFocus
-                          />
-                          <button
-                            onClick={() => addFeedback(subGoalIndex, actionIndex)}
-                            className="px-3 py-2 bg-green-500 text-white text-sm rounded-lg hover:bg-green-600 transition-colors"
-                          >
-                            추가
-                          </button>
-                          <button
-                            onClick={cancelAddingFeedback}
-                            className="px-3 py-2 bg-gray-200 text-gray-700 text-sm rounded-lg hover:bg-gray-300 transition-colors"
-                          >
-                            취소
-                          </button>
-                        </div>
-                      )}
-
-                      {/* + 버튼 */}
-                      {!isAddingFeedback(subGoalIndex, actionIndex) && (
-                        <div className="flex justify-center my-2">
-                          <button
-                            onClick={() => startAddingFeedback(subGoalIndex, actionIndex)}
-                            className="w-8 h-8 flex items-center justify-center bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors"
-                          >
-                            <Plus size={16} />
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
     </div>
   );
 };

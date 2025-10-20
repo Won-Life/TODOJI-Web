@@ -1,5 +1,7 @@
 'use client'
-import React, { useState, FC } from 'react';
+import React, { useState, FC, useRef, useEffect } from 'react';
+import Image from 'next/image';
+import WeeklyScheduleSelector from '../components/WeeklyScheduleSelector';
 
 // 각 단계의 UI 컴포넌트들
 const STEPS = [
@@ -245,6 +247,59 @@ const VillageNameStep = () => (
 const SubGoalStep: FC<{ stepNumber: number }> = ({ stepNumber }) => {
   const [criteriaType, setCriteriaType] = useState<'self-check' | 'count'>('self-check');
   const [countValue, setCountValue] = useState<string>('');
+  const [actions, setActions] = useState([
+    { id: 1, text: '어학공부 하기', hasSchedule: false, isScheduleOpen: false, selectedDays: [] as string[] },
+    { id: 2, text: '어학공부 하기', hasSchedule: false, isScheduleOpen: false, selectedDays: [] as string[] },
+  ]);
+  const [focusId, setFocusId] = useState<number | null>(null);
+  const inputRefs = useRef<{ [key: number]: HTMLInputElement | null }>({});
+
+  const toggleSchedule = (id: number) => {
+    setActions(actions.map(action => {
+      if (action.id === id) {
+        const willClose = action.isScheduleOpen;
+        // 닫을 때 선택된 요일이 있는지 확인
+        const hasSelectedDays = action.selectedDays.length > 0;
+        return {
+          ...action,
+          isScheduleOpen: !action.isScheduleOpen,
+          hasSchedule: willClose ? hasSelectedDays : action.hasSchedule
+        };
+      }
+      return action;
+    }));
+  };
+
+  const updateSelectedDays = (id: number, days: string[]) => {
+    setActions(actions.map(action =>
+      action.id === id ? { ...action, selectedDays: days } : action
+    ));
+  };
+
+  const addNewAction = () => {
+    const newId = actions.length > 0 ? Math.max(...actions.map(a => a.id)) + 1 : 1;
+    setActions([...actions, { id: newId, text: '', hasSchedule: false, isScheduleOpen: false, selectedDays: [] as string[] }]);
+    setFocusId(newId);
+  };
+
+  useEffect(() => {
+    if (focusId !== null && inputRefs.current[focusId]) {
+      inputRefs.current[focusId]?.focus();
+      setFocusId(null);
+    }
+  }, [focusId, actions]);
+
+  const updateActionText = (id: number, text: string) => {
+    setActions(actions.map(action =>
+      action.id === id ? { ...action, text } : action
+    ));
+  };
+
+  const handleActionBlur = (id: number, text: string) => {
+    if (text.trim() === '') {
+      setActions(actions.filter(action => action.id !== id));
+    }
+  };
 
   return (
     <>
@@ -302,9 +357,47 @@ const SubGoalStep: FC<{ stepNumber: number }> = ({ stepNumber }) => {
       <div className="border border-gray-200 rounded-md p-3">
         <p className="text-sm font-bold mb-2">행동목표</p>
         <div className="space-y-2 text-sm">
-          <p>1. 어학공부 하기</p>
-          <p>2. 어학공부 하기</p>
-          <p className="text-gray-300">3. .....................</p>
+          {actions.map((action, index) => (
+            <div key={action.id}>
+              <div className="flex items-center gap-2">
+                <span className="font-bold w-4">{index + 1}.</span>
+                <div className="flex items-center justify-between flex-1 border-b border-gray-300 pb-1 px-1">
+                  <input
+                    ref={(el) => { inputRefs.current[action.id] = el; }}
+                    type="text"
+                    value={action.text}
+                    onChange={(e) => updateActionText(action.id, e.target.value)}
+                    onBlur={(e) => handleActionBlur(action.id, e.target.value)}
+                    placeholder="행동 목표를 입력하세요"
+                    className={`text-xs bg-transparent outline-none flex-1 ${action.text ? '' : 'placeholder-gray-300'}`}
+                  />
+                  <button onClick={() => toggleSchedule(action.id)}>
+                    <Image
+                      src={action.hasSchedule || action.isScheduleOpen ? '/assets/repeat-active.png' : '/assets/repeat.png'}
+                      alt="repeat"
+                      width={13}
+                      height={13}
+                    />
+                  </button>
+                </div>
+              </div>
+              {action.isScheduleOpen && (
+                <div className="mt-2">
+                  <WeeklyScheduleSelector
+                    selectedDays={action.selectedDays}
+                    onDaysChange={(days) => updateSelectedDays(action.id, days)}
+                  />
+                </div>
+              )}
+            </div>
+          ))}
+          <button
+            onClick={addNewAction}
+            className="w-1/2 mx-auto text-center text-xs text-white mt-2 py-2 rounded-md block"
+            style={{ backgroundColor: 'var(--main-color)' }}
+          >
+            + 새 행동목표 추가
+          </button>
         </div>
       </div>
     </div>

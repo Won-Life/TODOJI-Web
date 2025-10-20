@@ -255,10 +255,7 @@ const SubGoalStep: FC<{ stepNumber: number }> = ({ stepNumber }) => {
         placeholder={`세부목표를 입력하세요. (15자 이내)`}
         className="w-full bg-gray-100 rounded-md p-3 text-sm placeholder-gray-400"
       />
-      {/* <div className="flex items-center justify-between p-3 border border-gray-200 rounded-md">
-        <label htmlFor="period-check" className="text-sm">마감 기한</label>
-        <input type="checkbox" id="period-check" className="form-checkbox h-5 w-5 text-black rounded focus:ring-black" />
-      </div> */}
+      <DeadlineSection hasCheckbox={true} />
       <div className="border border-gray-200 rounded-md p-3">
         <div className="flex items-center justify-between">
           <label className="text-sm font-bold">목표 달성 기준</label>

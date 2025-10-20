@@ -1,6 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import { Mail, Loader2 } from 'lucide-react';
+import { EmailInputSection } from '../components/EmailInputSection';
 
 type Screen = 'initial' | 'login' | 'error' | 'loading' | 'signup' | 'home';
 
@@ -247,32 +248,13 @@ const LoginFlow: React.FC = () => {
           {/* 이메일 */}
           <div>
             <label className="block text-sm font-medium mb-2">이메일</label>
-            <div className="flex gap-2 items-center">
-              <div className="flex flex-[7] bg-gray-300 rounded-md">
-                <input
-                  type="text"
-                  placeholder="이메일 입력"
-                  value={signupData.email}
-                  onChange={(e) => setSignupData({...signupData, email: e.target.value})}
-                  className="w-20 pl-3 py-2 rounded-lg"
-                />
-                <div className="flex items-center py-1 px-2 gap-1">
-                  <span>@</span>
-                  <select
-                    value={signupData.emailDomain}
-                    onChange={(e) => setSignupData({...signupData, emailDomain: e.target.value})}
-                    className="px-2 py-1 bg-white rounded-lg items-center"
-                  >
-                    <option>naver.com</option>
-                    <option>gmail.com</option>
-                    <option>daum.net</option>
-                  </select>
-                </div>
-              </div>
-              <button className="flex-[3] p-2 bg-black text-white rounded-md text-sm">
-                중복 확인
-              </button>
-            </div>
+            <EmailInputSection
+              email={signupData.email}
+              domain={signupData.emailDomain}
+              onEmailChange={(email, domain) =>
+                setSignupData({...signupData, email, emailDomain: domain})
+              }
+            />
           </div>
           {/* 비밀번호 */}
           <div>

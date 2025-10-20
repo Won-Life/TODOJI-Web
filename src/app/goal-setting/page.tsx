@@ -122,13 +122,13 @@ const Calendar: FC<{ onDateSelect: (date: Date) => void }> = ({ onDateSelect }) 
     );
 };
 
-// 최종 목표 설정 페이지
-const FinalGoalStep = () => {
+const DeadlineSection: FC<{ hasCheckbox?: boolean }> = ({ hasCheckbox = false }) => {
   const [deadlineType, setDeadlineType] = useState<'date' | 'period'>('date');
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(new Date(new Date().setDate(new Date().getDate() + 30)));
   const [period, setPeriod] = useState<string>('100');
+  const [isChecked, setIsChecked] = useState(false);
 
   const handleDateSelect = (date: Date) => {
     // Simple range selection logic
@@ -145,11 +145,73 @@ const FinalGoalStep = () => {
     }
   }
 
+  const showDateSection = hasCheckbox ? isChecked : true;
+
   return (
-    <>
-      <h2 className="text-2xl font-bold mb-6">나의 최종목표는?</h2>
-    <div className="flex-col bg-white shadow-md rounded-md mb-6">
-      <div className="w-full h-40 rounded-md  flex items-center justify-center">
+    <div className="w-full shadow-even rounded-md p-3">
+      <div className="flex items-center justify-between">
+        <p className="font-bold text-left">마감 기한</p>
+        {hasCheckbox && (
+          <input
+            type="checkbox"
+            checked={isChecked}
+            onChange={(e) => setIsChecked(e.target.checked)}
+            className="form-checkbox h-5 w-5 text-black rounded focus:ring-black"
+          />
+        )}
+      </div>
+
+      {showDateSection && (
+        <div className="flex-col bg-white shadow-even rounded-md mt-2">
+          <div className="flex bg-gray-100 rounded-md text-sm p-1">
+            <button
+              onClick={() => { setDeadlineType('date'); setIsCalendarOpen(false); }}
+              className={`flex-1 p-2 rounded-md font-semibold transition-all ${deadlineType === 'date' ? 'bg-white shadow' : 'bg-transparent text-gray-500'}`}>
+              날짜
+            </button>
+            <button
+              onClick={() => { setDeadlineType('period'); setIsCalendarOpen(false); }}
+              className={`flex-1 p-2 rounded-md font-semibold transition-all ${deadlineType === 'period' ? 'bg-white shadow' : 'bg-transparent text-gray-500'}`}>
+              기간
+            </button>
+          </div>
+
+          {deadlineType === 'date' ? (
+            <div>
+              <div
+                onClick={() => setIsCalendarOpen(!isCalendarOpen)}
+                className="flex items-center justify-between p-3 cursor-pointer">
+                <span className={isCalendarOpen ? 'text-red-500' : ''}>{startDate ? formatDate(startDate) : '시작일'}</span>
+                <span>→</span>
+                <span>{endDate ? formatDate(endDate) : '종료일'}</span>
+              </div>
+              {isCalendarOpen && <Calendar onDateSelect={handleDateSelect} />}
+            </div>
+          ) : (
+            <div className="relative w-full">
+              <input
+                type="number"
+                value={period}
+                onChange={(e) => setPeriod(e.target.value)}
+                placeholder="ex. 100"
+                className="w-full p-3 text-sm placeholder-gray-400 text-right pr-12"
+                />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">일</span>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+// 최종 목표 설정 페이지
+const FinalGoalStep = () => {
+return (
+  <>
+    <h2 className="text-2xl font-bold mb-6">나의 최종목표는?</h2>
+    <div className="flex-col bg-white shadow-even-md rounded-md mb-6">
+      <div className="w-full h-40 rounded-md  flex items-center justify-center" >
         <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
         </svg>
@@ -160,51 +222,8 @@ const FinalGoalStep = () => {
         className="w-full bg-gray-100 rounded-md p-3 text-sm placeholder-gray-400"
       />
     </div>
-    <div className="w-full shadow rounded-md p-3">
-      <div>
-        <p className="font-bold mb-2 text-left">마감 기한</p>
-      </div>
-
-      <div className="flex-col bg-white shadow rounded-md ">
-        <div className="flex bg-gray-100 rounded-md text-sm p-1">
-          <button
-            onClick={() => { setDeadlineType('date'); setIsCalendarOpen(false); }}
-            className={`flex-1 p-2 rounded-md font-semibold transition-all ${deadlineType === 'date' ? 'bg-white shadow' : 'bg-transparent text-gray-500'}`}>
-            날짜
-          </button>
-          <button
-            onClick={() => { setDeadlineType('period'); setIsCalendarOpen(false); }}
-            className={`flex-1 p-2 rounded-md font-semibold transition-all ${deadlineType === 'period' ? 'bg-white shadow' : 'bg-transparent text-gray-500'}`}>
-            기간
-          </button>
-        </div>
-
-        {deadlineType === 'date' ? (
-          <div>
-            <div
-              onClick={() => setIsCalendarOpen(!isCalendarOpen)}
-              className="flex items-center justify-between p-3 cursor-pointer">
-              <span className={isCalendarOpen ? 'text-red-500' : ''}>{startDate ? formatDate(startDate) : '시작일'}</span>
-              <span>→</span>
-              <span>{endDate ? formatDate(endDate) : '종료일'}</span>
-            </div>
-            {isCalendarOpen && <Calendar onDateSelect={handleDateSelect} />}
-          </div>
-        ) : (
-          <div className="relative w-full">
-            <input
-              type="number"
-              value={period}
-              onChange={(e) => setPeriod(e.target.value)}
-              placeholder="ex. 100"
-              className="w-full p-3 text-sm placeholder-gray-400 text-right pr-12"
-              />
-            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">일</span>
-          </div>
-        )}
-      </div>
-    </div>
-    </>
+    <DeadlineSection />
+  </>
 );}
 
 // 마을 이름 설정 페이지

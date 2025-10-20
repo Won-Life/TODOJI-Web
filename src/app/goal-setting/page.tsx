@@ -446,16 +446,18 @@ export default function GoalSettingPage() {
         <h1 className="mx-auto font-semibold">최초 목표 설정</h1>
       </div>
 
-      <div className="bg-white p-6 h-full flex flex-col">
+      <div className="bg-white p-6 min-h-screen flex-col pb-24">
         <ProgressBar currentStep={currentStep} />
 
         <div className="flex-grow mt-8">
           {renderStepContent()}
         </div>
+      </div>
 
+      <div className="fixed bottom-0 left-0 right-0 max-w-md p-4 pb-10 mx-auto">
         <button
           onClick={handleNext}
-          className="w-full py-3 mt-8 bg-black text-white rounded-lg font-bold text-lg"
+          className="w-full py-3 bg-black text-white rounded-lg font-bold text-lg"
         >
           {currentStep === STEPS.length ? '완료' : '다음'}
         </button>

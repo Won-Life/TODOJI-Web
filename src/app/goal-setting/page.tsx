@@ -244,6 +244,7 @@ const VillageNameStep = () => (
 // 세부 목표 설정 페이지
 const SubGoalStep: FC<{ stepNumber: number }> = ({ stepNumber }) => {
   const [criteriaType, setCriteriaType] = useState<'self-check' | 'count'>('self-check');
+  const [countValue, setCountValue] = useState<string>('');
 
   return (
     <>
@@ -276,13 +277,25 @@ const SubGoalStep: FC<{ stepNumber: number }> = ({ stepNumber }) => {
           </button>
           <button
             onClick={() => setCriteriaType('count')}
-            className={`flex-1 rounded-md p-2 transition-all ${
+            className={`flex-1 rounded-md p-2 transition-all relative ${
               criteriaType === 'count'
                 ? 'bg-white shadow font-semibold'
                 : 'bg-transparent text-gray-500'
             }`}
           >
-            ____회 이상 수행
+            <input
+              type="number"
+              value={countValue}
+              onChange={(e) => setCountValue(e.target.value)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setCriteriaType('count');
+              }}
+              className={`inline-block w-8 text-center bg-transparent border-b-2 mr-2 ${
+                criteriaType === 'count' ? 'border-black' : 'border-gray-400'
+              } focus:outline-none`}
+            />
+            회 이상 수행
           </button>
         </div>
       </div>

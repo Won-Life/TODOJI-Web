@@ -113,17 +113,20 @@ export default function GoalManagementPage() {
           )}
 
           {activeTab === 'sub' && (
-            <div className="space-y-6">
-              {subGoals.map((subGoal, index) => (
-                <SubGoalStep
-                  key={index}
-                  stepNumber={index + 1}
-                  subGoal={subGoal}
-                  onChange={(data) => handleSubGoalChange(index, data)}
-                  editMode={true}
-                />
-              ))}
-            </div>
+            <>
+              <h2 className="text-2xl font-bold">세부목표와 행동</h2>
+              <div className="space-y-10">
+                {subGoals.map((subGoal, index) => (
+                  <SubGoalStep
+                    key={index}
+                    stepNumber={index + 1}
+                    subGoal={subGoal}
+                    onChange={(data) => handleSubGoalChange(index, data)}
+                    editMode={true}
+                  />
+                ))}
+              </div>
+            </>
           )}
         </section>
       </main>

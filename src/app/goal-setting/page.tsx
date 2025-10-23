@@ -180,30 +180,39 @@ export default function GoalSettingPage() {
         );
       case 2:
         return (
-          <SubGoalStep
-            key="subgoal-1"
-            stepNumber={1}
-            subGoal={formData.subGoal1}
-            onChange={(data) => updateSubGoal(1, data)}
-          />
+          <>
+            <h2 className="text-2xl font-bold">세부목표와 행동</h2>
+            <SubGoalStep
+              key="subgoal-1"
+              stepNumber={1}
+              subGoal={formData.subGoal1}
+              onChange={(data) => updateSubGoal(1, data)}
+            />
+          </>
         );
       case 3:
         return (
-          <SubGoalStep
-            key="subgoal-2"
-            stepNumber={2}
-            subGoal={formData.subGoal2}
-            onChange={(data) => updateSubGoal(2, data)}
-          />
+          <>
+            <h2 className="text-2xl font-bold">세부목표와 행동</h2>
+            <SubGoalStep
+              key="subgoal-2"
+              stepNumber={2}
+              subGoal={formData.subGoal2}
+              onChange={(data) => updateSubGoal(2, data)}
+            />
+          </>
         );
       case 4:
         return (
-          <SubGoalStep
-            key="subgoal-3"
-            stepNumber={3}
-            subGoal={formData.subGoal3}
-            onChange={(data) => updateSubGoal(3, data)}
-          />
+          <>
+            <h2 className="text-2xl font-bold">세부목표와 행동</h2>
+            <SubGoalStep
+              key="subgoal-3"
+              stepNumber={3}
+              subGoal={formData.subGoal3}
+              onChange={(data) => updateSubGoal(3, data)}
+            />
+          </>
         );
       case 5:
         return (

@@ -31,7 +31,7 @@ export default function FinalGoalStep({ data, onChange }: FinalGoalStepProps) {
           value={data.title}
           onChange={handleTitleChange}
           placeholder="최종 목표를 입력하세요. (ex. 외국계 기업 취업)"
-          className="w-full bg-gray-100 rounded-md p-3 text-sm placeholder-gray-400"
+          className="w-full bg-gray-100 rounded-md p-3 text-sm placeholder-gray-400 focus:outline-none"
         />
       </div>
       <DeadlineSection

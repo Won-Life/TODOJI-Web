@@ -120,6 +120,7 @@ export default function GoalManagementPage() {
                   stepNumber={index + 1}
                   subGoal={subGoal}
                   onChange={(data) => handleSubGoalChange(index, data)}
+                  editMode={true}
                 />
               ))}
             </div>

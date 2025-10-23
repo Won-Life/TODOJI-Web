@@ -9,12 +9,12 @@ interface SubGoalStepProps {
   stepNumber: number;
   subGoal: SubGoalData;
   onChange: (data: Partial<SubGoalData>) => void;
+  editMode?: boolean;
 }
 
-export default function SubGoalStep({ stepNumber, subGoal, onChange }: SubGoalStepProps) {
+export default function SubGoalStep({ stepNumber, subGoal, onChange, editMode = false }: SubGoalStepProps) {
   const { title, deadline, criteriaType, countValue, actions } = subGoal;
 
-  // UI-only state for schedule expansion (not synced to parent)
   const [openScheduleIds, setOpenScheduleIds] = useState<Set<number>>(new Set());
   const [focusId, setFocusId] = useState<number | null>(null);
   const inputRefs = useRef<{ [key: number]: HTMLInputElement | null }>({});
@@ -67,9 +67,19 @@ export default function SubGoalStep({ stepNumber, subGoal, onChange }: SubGoalSt
 
   return (
     <>
-    <h2 className="text-2xl font-bold">세부목표와 행동</h2>
-    <h3 className="text-lg font-semibold text-gray-600 mb-6">세부목표 {stepNumber}</h3>
-    <div className="w-full text-left space-y-4">
+    <h2 className="text-2xl font-bold pl-1">세부목표와 행동</h2>
+    <div className="flex items-center justify-between mt-5 mb-2 px-1">
+      <h3 className="text-lg font-bold">세부목표 {stepNumber}</h3>
+      {editMode && (
+        <button
+          className="px-3 py-1 text-xs text-white rounded-sm"
+          style={{ backgroundColor: 'var(--main-color)' }}
+        >
+          달성
+        </button>
+      )}
+    </div>
+    <div className="w-full text-left space-y-2">
       <input
         type="text"
         value={title}
@@ -124,8 +134,8 @@ export default function SubGoalStep({ stepNumber, subGoal, onChange }: SubGoalSt
           </button>
         </div>
       </div>
+      <p className="text-lg font-bold mt-3 mb-2 pl-1">행동목표</p>
       <div className="shadow-even rounded-md p-3">
-        <p className="text-sm font-bold mb-2">행동목표</p>
         <div className="space-y-2 text-sm">
           {actions.map((action, index) => (
             <div key={action.id}>

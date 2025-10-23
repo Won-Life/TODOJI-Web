@@ -75,14 +75,14 @@ export default function SubGoalStep({ stepNumber, subGoal, onChange }: SubGoalSt
         value={title}
         onChange={(e) => onChange({ title: e.target.value })}
         placeholder={`세부목표를 입력하세요. (15자 이내)`}
-        className="w-full bg-gray-100 rounded-md p-3 text-sm placeholder-gray-400"
+        className="w-full shadow-even bg-gray-100 rounded-md p-3 text-sm placeholder-gray-400 focus:outline-none"
       />
       <DeadlineSection
         deadline={deadline}
         onChange={(deadline: DeadlineData) => onChange({ deadline })}
         hasCheckbox={true}
       />
-      <div className="border border-gray-200 rounded-md p-3">
+      <div className="shadow-even rounded-md p-3">
         <div className="flex items-center justify-between">
           <label className="text-sm font-bold">목표 달성 기준</label>
           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -124,7 +124,7 @@ export default function SubGoalStep({ stepNumber, subGoal, onChange }: SubGoalSt
           </button>
         </div>
       </div>
-      <div className="border border-gray-200 rounded-md p-3">
+      <div className="shadow-even rounded-md p-3">
         <p className="text-sm font-bold mb-2">행동목표</p>
         <div className="space-y-2 text-sm">
           {actions.map((action, index) => (

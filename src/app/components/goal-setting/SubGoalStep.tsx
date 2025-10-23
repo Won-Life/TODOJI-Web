@@ -163,10 +163,10 @@ export default function SubGoalStep({ stepNumber, subGoal, onChange }: SubGoalSt
           ))}
           <button
             onClick={addNewAction}
-            className="w-1/2 mx-auto text-center text-xs text-white mt-2 py-2 rounded-md block"
+            className="shadow-even w-1/2 mx-auto text-center text-sm text-white mt-4 py-2 rounded-md block"
             style={{ backgroundColor: 'var(--main-color)' }}
           >
-            + 새 행동목표 추가
+            + 새 행동목표 생성
           </button>
         </div>
       </div>

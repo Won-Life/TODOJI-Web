@@ -20,7 +20,6 @@ interface DeadlineSectionProps {
 export default function DeadlineSection({ deadline, onChange, hasCheckbox = false }: DeadlineSectionProps) {
   const { type: deadlineType, startDate, endDate, period, hasDeadline } = deadline;
 
-  // UI-only state for calendar expansion (not synced to parent)
   const [isCalendarOpen, setIsCalendarOpen] = useState<'start' | 'end' | null>(null);
   const [dateError, setDateError] = useState<string>('');
 
@@ -36,7 +35,6 @@ export default function DeadlineSection({ deadline, onChange, hasCheckbox = fals
 
   const handleDateSelect = (date: Date) => {
     if (isCalendarOpen === 'start') {
-      // Check if new start date is after end date
       if (endDate && date > endDate) {
         setDateError('시작일은 종료일보다 이전이어야 합니다.');
         return;
@@ -45,7 +43,6 @@ export default function DeadlineSection({ deadline, onChange, hasCheckbox = fals
       onChange({ ...deadline, startDate: date });
       setIsCalendarOpen(null);
     } else if (isCalendarOpen === 'end') {
-      // Check if new end date is before start date
       if (startDate && date < startDate) {
         setDateError('종료일은 시작일보다 이후여야 합니다.');
         return;
@@ -67,7 +64,7 @@ export default function DeadlineSection({ deadline, onChange, hasCheckbox = fals
             type="checkbox"
             checked={hasDeadline || false}
             onChange={(e) => onChange({ ...deadline, hasDeadline: e.target.checked })}
-            className="form-checkbox h-5 w-5 text-black rounded focus:ring-black"
+            className="checkbox-white-check h-5 w-5 rounded cursor-pointer"
           />
         )}
       </div>

@@ -63,7 +63,7 @@ export default function FinalGoalStep({ data, onChange }: FinalGoalStepProps) {
         <input
           ref={fileInputRef}
           type="file"
-          accept="image/*"
+          accept="image/jpeg,image/png,image/heic,image/heif"
           onChange={handleImageUpload}
           className="hidden"
         />

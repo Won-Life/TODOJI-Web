@@ -22,20 +22,35 @@ export default function DeadlineSection({ deadline, onChange, hasCheckbox = fals
 
   // UI-only state for calendar expansion (not synced to parent)
   const [isCalendarOpen, setIsCalendarOpen] = useState<'start' | 'end' | null>(null);
+  const [dateError, setDateError] = useState<string>('');
 
   const handleStartDateClick = () => {
     setIsCalendarOpen(isCalendarOpen === 'start' ? null : 'start');
+    setDateError('');
   };
 
   const handleEndDateClick = () => {
     setIsCalendarOpen(isCalendarOpen === 'end' ? null : 'end');
+    setDateError('');
   };
 
   const handleDateSelect = (date: Date) => {
     if (isCalendarOpen === 'start') {
+      // Check if new start date is after end date
+      if (endDate && date > endDate) {
+        setDateError('시작일은 종료일보다 이전이어야 합니다.');
+        return;
+      }
+      setDateError('');
       onChange({ ...deadline, startDate: date });
       setIsCalendarOpen(null);
     } else if (isCalendarOpen === 'end') {
+      // Check if new end date is before start date
+      if (startDate && date < startDate) {
+        setDateError('종료일은 시작일보다 이후여야 합니다.');
+        return;
+      }
+      setDateError('');
       onChange({ ...deadline, endDate: date });
       setIsCalendarOpen(null);
     }
@@ -93,6 +108,11 @@ export default function DeadlineSection({ deadline, onChange, hasCheckbox = fals
                   {endDate ? formatDate(endDate) : '종료일'}
                 </span>
               </div>
+              {dateError && (
+                <div className="px-3 pb-2 text-xs text-red-500">
+                  {dateError}
+                </div>
+              )}
               {isCalendarOpen && <Calendar onDateSelect={handleDateSelect} />}
             </div>
           ) : (

@@ -1,6 +1,7 @@
 'use client'
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
+import { AiOutlineQuestionCircle } from 'react-icons/ai';
 import DeadlineSection from './DeadlineSection';
 import WeeklyScheduleSelector from '../WeeklyScheduleSelector';
 import { SubGoalData, DeadlineData, ActionItem } from '../../types/goal-setting';
@@ -18,6 +19,9 @@ export default function SubGoalStep({ stepNumber, subGoal, onChange, editMode = 
   const [openScheduleIds, setOpenScheduleIds] = useState<Set<number>>(new Set());
   const [focusId, setFocusId] = useState<number | null>(null);
   const inputRefs = useRef<{ [key: number]: HTMLInputElement | null }>({});
+  const [showTooltip, setShowTooltip] = useState(false);
+  const tooltipRef = useRef<HTMLDivElement>(null);
+  const iconRef = useRef<HTMLDivElement>(null);
 
   const toggleSchedule = (id: number) => {
     const newOpenIds = new Set(openScheduleIds);
@@ -51,6 +55,28 @@ export default function SubGoalStep({ stepNumber, subGoal, onChange, editMode = 
     }
   }, [focusId, actions]);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
+      if (
+        tooltipRef.current &&
+        !tooltipRef.current.contains(target) &&
+        iconRef.current &&
+        !iconRef.current.contains(target)
+      ) {
+        setShowTooltip(false);
+      }
+    };
+
+    if (showTooltip) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showTooltip]);
+
   const updateActionText = (id: number, text: string) => {
     onChange({
       actions: actions.map(a =>
@@ -67,7 +93,6 @@ export default function SubGoalStep({ stepNumber, subGoal, onChange, editMode = 
 
   return (
     <>
-    <h2 className="text-2xl font-bold pl-1">세부목표와 행동</h2>
     <div className="flex items-center justify-between mt-5 mb-2 px-1">
       <h3 className="text-lg font-bold">세부목표 {stepNumber}</h3>
       {editMode && (
@@ -95,9 +120,35 @@ export default function SubGoalStep({ stepNumber, subGoal, onChange, editMode = 
       <div className="shadow-even rounded-md p-3">
         <div className="flex items-center justify-between">
           <label className="text-sm font-bold">목표 달성 기준</label>
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
+          <div className="relative" ref={iconRef}>
+            <AiOutlineQuestionCircle
+              className={`h-4 w-4 cursor-pointer transition-colors ${
+                showTooltip ? 'text-[var(--main-color)]' : 'text-gray-400'
+              }`}
+              onClick={() => setShowTooltip(!showTooltip)}
+            />
+            {showTooltip && (
+              <div
+                ref={tooltipRef}
+                className="absolute right-0 top-6 w-[70vw] bg-white shadow-lg rounded-md p-3 text-xs text-gray-700 z-50 border border-gray-200 break-keep"
+              >
+                <div className="mb-3">
+                  <strong>스스로 체크하기</strong>
+                  <br />
+                  대시보드 화면에서 박스를 체크해,
+                  <br />
+                  스스로 세부목표 달성 여부를 정할 수 있습니다.
+                </div>
+                <div>
+                  <strong>n회 이상 수행</strong>
+                  <br />
+                  직접 입력한 횟수만큼 세부목표를 달성하면,
+                  <br />
+                  자동으로 세부목표가 달성 처리됩니다.
+                </div>
+              </div>
+            )}
+          </div>
         </div>
         <div className="mt-2 flex bg-gray-100 rounded-md p-1 text-sm">
           <button

@@ -49,16 +49,18 @@ const EditProfilePage: NextPage = () => {
           </InputSection>
 
           <InputSection label="전화번호">
-            <div className="flex items-center gap-2">
-              <input
-                type="tel"
-                placeholder="전화번호를 입력해주세요"
-                className={`${inputStyle} flex-grow`}
-              />
+            <div className="flex gap-2 items-center">
+              <div className="flex flex-[8] items-center gap-2">
+                <input
+                  type="tel"
+                  placeholder="전화번호를 입력해주세요"
+                  className={`${inputStyle} flex-grow`}
+                  />
+              </div>
               <button
                 type="button"
-                className="flex-shrink-0 rounded-lg bg-gray-200 px-4 py-3 text-sm font-bold text-gray-600 transition-colors hover:bg-gray-300"
-              >
+                className="flex-shrink-0 flex-[2] rounded-lg bg-gray-200 px-4 py-3 text-xs font-bold text-gray-600 transition-colors hover:bg-gray-300"
+                >
                 문자 인증
               </button>
             </div>

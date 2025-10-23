@@ -10,18 +10,21 @@ const CalendarCard: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
   // 샘플 데이터 - 실제로는 props나 API로 받아올 데이터
+  const mainColor = 'var(--main-color)';
   const colorData: ColorData = {
-    '2025-09-02': '#10b981',
-    '2025-09-03': '#10b981',
-    '2025-09-04': '#10b981',
-    '2025-09-06': '#10b981',
-    '2025-09-07': '#10b981',
-    '2025-09-09': '#10b981',
-    '2025-10-01': '#10b981',
-    '2025-10-03': '#10b981',
-    '2025-10-05': '#10b981',
-    '2025-10-08': '#10b981',
-    '2025-10-10': '#10b981',
+    '2025-09-02': mainColor,
+    '2025-09-03': mainColor,
+    '2025-09-04': mainColor,
+    '2025-09-06': mainColor,
+    '2025-09-07': mainColor,
+    '2025-09-09': mainColor,
+    '2025-10-01': mainColor,
+    '2025-10-03': mainColor,
+    '2025-10-05': mainColor,
+    '2025-10-08': mainColor,
+    '2025-10-10': mainColor,
+    '2025-10-20': mainColor,
+    '2025-10-24': mainColor,
   };
 
   // 날짜를 YYYY-MM-DD 형식으로 변환
@@ -114,7 +117,7 @@ const CalendarCard: React.FC = () => {
       </div>
 
       {/* 요일 헤더 */}
-      <div className={`max-w-md mx-auto px-2 grid ${isMonthView ? 'grid-cols-7' : 'grid-cols-7'} gap-2 mb-1`}>
+      <div className={`max-w-md mx-auto px-2 grid ${isMonthView ? 'grid-cols-7' : 'grid-cols-7'} gap-2 mb-4`}>
         {weekDays.map((day) => (
           <div key={day} className="text-center text-xs text-gray-800 font-medium">
             {day}
@@ -122,7 +125,7 @@ const CalendarCard: React.FC = () => {
         ))}
       </div>
 
-      <div className="max-w-md mx-auto px-2 py-3 bg-white rounded-xl shadow-lg">
+      <div className="shadow-even-md max-w-md mx-auto px-2 py-3 bg-white rounded-xl shadow-lg">
         {/* 날짜 그리드 */}
         <div className={`grid ${isMonthView ? 'grid-cols-7' : 'grid-cols-7'} gap-2`}>
           {dates.map((date, index) => {
@@ -132,15 +135,61 @@ const CalendarCard: React.FC = () => {
 
             return (
               <div key={index} className="flex flex-col items-center">
+                <div className="relative w-5 h-5 mb-1">
+                  {/* 아치형 - 바깥 검정 테두리 */}
+                  <div
+                    className="absolute w-full h-full overflow-hidden"
+                  >
+                    <div
+                      className="w-full rounded-t-full border-2 border-black"
+                      style={{
+                        height: '150%',
+                        backgroundColor: color || 'transparent',
+                      }}
+                    />
+                  </div>
+                  {/* 내부 흰색 선 */}
+                  {color && (
+                    <div
+                      className="absolute overflow-hidden"
+                      style={{
+                        width: 'calc(100% - 4px)',
+                        height: 'calc(100% - 2px)',
+                        top: '2px',
+                        left: '2px',
+                      }}
+                    >
+                      <div
+                        className="w-full rounded-t-full border-2 border-white"
+                        style={{
+                          height: '150%',
+                          boxShadow: 'inset 2px 2px 4px rgba(0, 0, 0, 0.2)',
+                        }}
+                      />
+                    </div>
+                  )}
+                  {/* 바닥 흰색 선 */}
+                  {color && (
+                    <div
+                      className="absolute border-b-2 border-white"
+                      style={{
+                        bottom: '2px',
+                        left: '2px',
+                        width: 'calc(100% - 4px)',
+                      }}
+                    />
+                  )}
+                  {/* 바닥 검정 선 */}
+                  <div
+                    className="absolute w-full border-b-2 border-black"
+                    style={{
+                      bottom: 0,
+                      left: 0,
+                    }}
+                  />
+                </div>
                 <div
-                  className="w-5 h-5 rounded-full flex items-center justify-center mb-1 border-2"
-                  style={{
-                    backgroundColor: color || 'transparent',
-                    borderColor: color || '#e5e7eb',
-                  }}
-                />
-                <div
-                  className={`text-xs ${
+                  className={`text-xs font-semibold ${
                     isCurrentMonth ? 'text-gray-900' : 'text-gray-400'
                   }`}
                 >

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import ArchIndicator from './ArchIndicator';
 
 interface ColorData {
   [key: string]: string;
@@ -135,59 +136,7 @@ const CalendarCard: React.FC = () => {
 
             return (
               <div key={index} className="flex flex-col items-center">
-                <div className="relative w-5 h-5 mb-1">
-                  {/* 아치형 - 바깥 검정 테두리 */}
-                  <div
-                    className="absolute w-full h-full overflow-hidden"
-                  >
-                    <div
-                      className="w-full rounded-t-full border-2 border-black"
-                      style={{
-                        height: '150%',
-                        backgroundColor: color || 'transparent',
-                      }}
-                    />
-                  </div>
-                  {/* 내부 흰색 선 */}
-                  {color && (
-                    <div
-                      className="absolute overflow-hidden"
-                      style={{
-                        width: 'calc(100% - 4px)',
-                        height: 'calc(100% - 2px)',
-                        top: '2px',
-                        left: '2px',
-                      }}
-                    >
-                      <div
-                        className="w-full rounded-t-full border-2 border-white"
-                        style={{
-                          height: '150%',
-                          boxShadow: 'inset 2px 2px 4px rgba(0, 0, 0, 0.2)',
-                        }}
-                      />
-                    </div>
-                  )}
-                  {/* 바닥 흰색 선 */}
-                  {color && (
-                    <div
-                      className="absolute border-b-2 border-white"
-                      style={{
-                        bottom: '2px',
-                        left: '2px',
-                        width: 'calc(100% - 4px)',
-                      }}
-                    />
-                  )}
-                  {/* 바닥 검정 선 */}
-                  <div
-                    className="absolute w-full border-b-2 border-black"
-                    style={{
-                      bottom: 0,
-                      left: 0,
-                    }}
-                  />
-                </div>
+                <ArchIndicator isActive={!!color} color={color} />
                 <div
                   className={`text-xs font-semibold ${
                     isCurrentMonth ? 'text-gray-900' : 'text-gray-400'

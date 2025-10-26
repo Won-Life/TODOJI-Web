@@ -5,7 +5,7 @@ import SubGoalStep from '../components/goal-setting/SubGoalStep';
 import VillageNameStep from '../components/goal-setting/VillageNameStep';
 import { GoalSettingFormData, FinalGoalData, SubGoalData } from '../types/goal-setting';
 import { useRouter } from 'next/navigation';
-import { setShowOnboardingExternal } from '../context/OnBoardingContext';
+import { useOnboarding } from '../context/OnBoardingContext';
 
 // 각 단계의 UI 컴포넌트들
 const STEPS = [
@@ -71,6 +71,7 @@ const ProgressBar: React.FC<{ currentStep: number }> = ({ currentStep }) => {
 // 메인 페이지
 export default function GoalSettingPage() {
   const router = useRouter();
+  const { setShowOnboarding } = useOnboarding();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<GoalSettingFormData>({
     finalGoal: {
@@ -136,7 +137,8 @@ export default function GoalSettingPage() {
 
   const handleComplete = async () => {
     console.log('Submitting goal data:', formData);
-    setShowOnboardingExternal(false);
+    // setShowOnboardingExternal(false);
+    setShowOnboarding(false);
     router.replace('/home');
     // TODO: 서버에 데이터 전송
     // try {

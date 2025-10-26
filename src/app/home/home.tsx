@@ -59,17 +59,17 @@ export default function Home() {
   const initialSnap = snapPoints.findIndex(p => p === currentSnapRatio);
 
   // RN WebView로부터 메시지 수신 (온보딩 표시 여부 등)
-  useEffect(() => {
-    const cleanup = addRNMessageListener((message) => {
-      if (message.type === 'SHOW_ONBOARDING') {
-        setShowOnboarding(message.data?.show ?? true);
-      } else if (message.type === 'HIDE_ONBOARDING') {
-        setShowOnboarding(false);
-      }
-    });
+  // useEffect(() => {
+  //   const cleanup = addRNMessageListener((message) => {
+  //     if (message.type === 'SHOW_ONBOARDING') {
+  //       setShowOnboarding(message.data?.show ?? true);
+  //     } else if (message.type === 'HIDE_ONBOARDING') {
+  //       setShowOnboarding(false);
+  //     }
+  //   });
 
-    return cleanup;
-  }, []);
+  //   return cleanup;
+  // }, []);
 
   return (
     <div className="relative h-screen w-screen overflow-hidden">

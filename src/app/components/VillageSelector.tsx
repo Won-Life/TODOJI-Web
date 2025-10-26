@@ -38,7 +38,7 @@ function VillageCard({ village, isSelected, onClick }: VillageCardProps) {
           : 'border-gray-200 bg-white'
       } transition-colors`}
     >
-      <div className="flex-shrink-0 w-13 h-13 bg-gray-200 rounded-md mr-4">
+      <div className="flex-shrink-0 w-14 h-14 bg-gray-200 rounded-md mr-4">
         {/* {village.imageUrl && (
           <img
             src={village.imageUrl}
@@ -48,9 +48,9 @@ function VillageCard({ village, isSelected, onClick }: VillageCardProps) {
         )} */}
       </div>
       <div className="text-left">
-        <h3 className="font-bold text-lg">{village.name}</h3>
-        <p className="text-sm text-gray-600">최종목표: {village.goal}</p>
-        <p className="text-sm text-gray-600">생성일: {village.createdDate}</p>
+        <h3 className="font-bold text-sm">{village.name}</h3>
+        <p className="text-xs">최종목표: {village.goal}</p>
+        <p className="text-xs">생성일: {village.createdDate}</p>
       </div>
     </button>
   );
@@ -73,17 +73,17 @@ export default function VillageSelector({
   // 마을 선택 시 처리 핸들러
   const handleSelect = (id: number) => {
     onSelectVillage(id);
-    setIsOpen(false); // 모달 닫기
+    setIsOpen(false);
   };
 
   return (
     <>
-      <header className="sticky top-0 z-10 flex items-center justify-center py-4 bg-gray-50 border-b border-gray-200">
+      <header className="sticky top-0 z-10 flex items-center justify-center py-3 bg-gray-50 shadow-md">
         <button
           onClick={() => setIsOpen(true)} // 클릭 시 모달 열기
           className="flex items-center space-x-1.5"
         >
-          <span className="text-lg font-bold text-gray-900">
+          <span className="text-base font-bold text-gray-900">
             {selectedVillage.name}
           </span>
           <IoChevronDown className="w-5 h-5 text-gray-700" />
@@ -109,7 +109,7 @@ export default function VillageSelector({
               <IoClose className="w-6 h-6" />
             </button> */}
 
-            <div className="overflow-y-auto space-y-2 px-2 pb-1">
+            <div className="overflow-y-auto space-y-2 px-2">
               {villages.map((village) => (
                 <VillageCard
                   key={village.id}

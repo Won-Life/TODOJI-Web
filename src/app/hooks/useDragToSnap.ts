@@ -73,9 +73,9 @@ export function useDragToSnap({
     let nextIndex = currentSnapIndex;
 
     // --- 스냅 로직 ---
-    if (dragDistance > 50) { // 아래로 50px 이상 드래그 (닫거나 낮은 스냅으로)
+    if (dragDistance > 20) { // 아래로 50px 이상 드래그 (닫거나 낮은 스냅으로)
         nextIndex = Math.max(0, currentSnapIndex - 1);
-    } else if (dragDistance < -50) { // 위로 50px 이상 드래그 (높은 스냅으로)
+    } else if (dragDistance < -20) { // 위로 50px 이상 드래그 (높은 스냅으로)
         nextIndex = Math.min(snapPoints.length - 1, currentSnapIndex + 1);
     }
 

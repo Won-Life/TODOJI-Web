@@ -187,7 +187,7 @@ export default function SubGoalStep({ stepNumber, subGoal, onChange, editMode = 
       </div>
       <p className="text-lg font-bold mt-3 mb-2 pl-1">행동목표</p>
       <div className="shadow-even rounded-md p-3">
-        <div className="space-y-2 text-sm">
+        <div className="space-y-2 text-md">
           {actions.map((action, index) => (
             <div key={action.id}>
               <div className="flex items-center gap-2">

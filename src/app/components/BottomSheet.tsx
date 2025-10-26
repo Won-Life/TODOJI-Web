@@ -15,7 +15,7 @@ export default function BottomSheet({
   onClose = () => {},
   children,
   snapPoints = [0.04, 0.35, 1],
-  initialSnap = 0,
+  initialSnap = 1,
   onSnapChange,
 }: CustomBottomSheetProps) {
   const sheetRef = useRef<HTMLDivElement>(null);

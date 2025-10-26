@@ -16,7 +16,7 @@ const mockVillageData = {
     finalGoal: "외국계 기업 취업",
     subGoals: [
         { name: "영어 공부", actions: ["토익 공부", "영어 신문 읽기", "미드 시청"] },
-        { name: "면접 준비", actions: ["자기소개 준비", "모의 면접"] },
+        { name: "면접 준비", actions: ["자기소개", "모의 면접"] },
     ]
 };
 

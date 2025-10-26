@@ -45,7 +45,7 @@ export const EmailInputSection: React.FC<EmailInputSectionProps> = ({
           placeholder="이메일 입력"
           value={email}
           onChange={(e) => handleEmailChange(e.target.value)}
-          className="w-20 pl-3 py-3 rounded-lg focus:outline-hidden"
+          className=" pl-3 py-3 rounded-lg focus:outline-hidden"
         />
         <div className="flex items-center py-1 px-2 gap-1">
           <span>@</span>
@@ -63,7 +63,7 @@ export const EmailInputSection: React.FC<EmailInputSectionProps> = ({
       <button
         type="button"
         onClick={handleDuplicateCheck}
-        className="flex flex-[2] bg-black text-white rounded-lg text-xs px-4 py-3 "
+        className="flex shrink-0 flex-[2] bg-black text-white rounded-lg text-xs px-4 py-3 "
       >
         중복 확인
       </button>

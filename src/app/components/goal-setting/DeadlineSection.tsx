@@ -58,7 +58,7 @@ export default function DeadlineSection({ deadline, onChange, hasCheckbox = fals
   return (
     <div className="w-full shadow-even rounded-md p-3">
       <div className="flex items-center justify-between">
-        <p className="font-bold text-left">마감 기한</p>
+        <p className="text-sm font-bold text-left">마감 기한</p>
         {hasCheckbox && (
           <input
             type="checkbox"
@@ -71,7 +71,7 @@ export default function DeadlineSection({ deadline, onChange, hasCheckbox = fals
 
       {showDateSection && (
         <div className="flex-col bg-white shadow-even rounded-md mt-2">
-          <div className="flex bg-gray-100 rounded-md text-sm p-1">
+          <div className="flex bg-gray-100 rounded-md text-xs p-1">
             <button
               onClick={() => {
                 onChange({ ...deadline, type: 'date' });

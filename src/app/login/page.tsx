@@ -312,14 +312,14 @@ const LoginFlow: React.FC = () => {
   });
 
   // 로딩 후 자동으로 홈 화면으로 이동
-  useEffect(() => {
-    if (currentScreen === 'loading') {
-      const timer = setTimeout(() => {
-        setCurrentScreen('home');
-      }, 2000);
-      return () => clearTimeout(timer);
-    }
-  }, [currentScreen]);
+  // useEffect(() => {
+  //   if (currentScreen === 'loading') {
+  //     const timer = setTimeout(() => {
+  //       setCurrentScreen('home');
+  //     }, 2000);
+  //     return () => clearTimeout(timer);
+  //   }
+  // }, [currentScreen]);
 
   const handleEmailLogin = () => {
     setCurrentScreen('login');

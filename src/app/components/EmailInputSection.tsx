@@ -63,7 +63,7 @@ export const EmailInputSection: React.FC<EmailInputSectionProps> = ({
       <button
         type="button"
         onClick={handleDuplicateCheck}
-        className="flex-shrink-0 flex-[2] px-4 py-3 bg-black text-white rounded-lg text-xs"
+        className="flex flex-[2] bg-black text-white rounded-lg text-xs px-4 py-3 "
       >
         중복 확인
       </button>

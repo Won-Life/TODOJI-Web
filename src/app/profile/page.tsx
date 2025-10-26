@@ -3,6 +3,7 @@ import { IoSettingsOutline } from 'react-icons/io5';
 import { BsCardImage } from 'react-icons/bs';
 import { MdChevronRight } from 'react-icons/md';
 import Link from 'next/link';
+import DetailHeader from '../components/DetailHeader';
 
 
 const InfoLink = ({ children }: { children: React.ReactNode }) => (
@@ -14,12 +15,13 @@ const InfoLink = ({ children }: { children: React.ReactNode }) => (
 
 const ProfilePage: NextPage = () => {
   return (
-    <div className="min-h-screen bg-gray-50 p-4 font-sans">
-      <main className="mx-auto max-w-md">
-        <header className="mb-6 flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-900">프로필</h1>
+    <div className="min-h-screen bg-gray-50 font-sans">
+      <DetailHeader title={'개인 정보'} showBackButton={false} />
+      <main className="mx-auto max-w-md p-4 pt-6">
+        <header className="flex items-center justify-between">
+          <h1 className="text-xl font-extrabold text-gray-900 pb-1">프로필</h1>
           <button aria-label="Settings">
-            <IoSettingsOutline className="h-6 w-6 text-gray-600" />
+            <IoSettingsOutline className="h-4 w-4" />
           </button>
         </header>
 

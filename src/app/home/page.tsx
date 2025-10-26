@@ -11,7 +11,7 @@ import VillageDetailModalContent from '../components/VillageDetailModalContent';
 import NewGoalCreationModalContent from '../components/NewGoalCreationModalContent';
 import BuildingDetailModalContent, { BuildingStatus } from '../components/BuildingDetailModalContent';
 import { addRNMessageListener } from '../utils/webview';
-import { useOnboarding } from '../context/OnBoardingContext';
+import { OnboardingProvider, useOnboarding } from '../context/OnBoardingContext';
 
 export default function Home() {
   const [isSheetOpen, setIsSheetOpen] = useState(true);
@@ -72,6 +72,7 @@ export default function Home() {
   }, []);
 
   return (
+    <OnboardingProvider>
     <div className="relative h-screen w-screen overflow-hidden">
       <BottomSheetProvider currentSnapRatio={currentSnapRatio}>
         {/* INFO:
@@ -116,5 +117,6 @@ export default function Home() {
         />
       </CustomModal>
     </div>
+    </OnboardingProvider>
   );
 }

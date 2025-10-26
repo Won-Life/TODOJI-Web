@@ -6,6 +6,7 @@ import VillageNameStep from '../components/goal-setting/VillageNameStep';
 import { GoalSettingFormData, FinalGoalData, SubGoalData } from '../types/goal-setting';
 import { useRouter } from 'next/navigation';
 import { useOnboarding } from '../context/OnBoardingContext';
+import DetailHeader from '../components/DetailHeader';
 
 // 각 단계의 UI 컴포넌트들
 const STEPS = [
@@ -233,17 +234,17 @@ export default function GoalSettingPage() {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto bg-black min-h-screen font-sans">
-      <div className="bg-black text-white p-4 flex items-center">
+    <div className="w-full max-w-md mx-auto min-h-screen font-sans">
+      <div className="p-3 flex items-center">
         <button onClick={handleBack}>
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
         </button>
-        <h1 className="mx-auto font-semibold">최초 목표 설정</h1>
+        <h1 className="mx-auto font-semibold text-base">최초 목표 설정</h1>
       </div>
 
-      <div className="bg-white p-6 min-h-screen flex-col pb-24">
+      <div className="bg-white pt-6 px-3 min-h-screen flex-col pb-24">
         <ProgressBar currentStep={currentStep} />
 
         <div className="flex-grow mt-8">
@@ -251,10 +252,11 @@ export default function GoalSettingPage() {
         </div>
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 max-w-md p-4 pb-10 mx-auto">
+      <div className="fixed bottom-0 left-0 right-0 bg-white max-w-md p-4 pb-5 mx-auto">
         <button
           onClick={currentStep === STEPS.length ? handleComplete : handleNext}
-          className="w-full py-3 bg-black text-white rounded-lg font-bold text-lg"
+          className="w-full py-2 text-white rounded-lg font-bold text-base"
+          style={{ backgroundColor: 'var(--main-color)' }}
         >
           {currentStep === STEPS.length ? '완료' : '다음'}
         </button>

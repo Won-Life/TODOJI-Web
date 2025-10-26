@@ -1,8 +1,8 @@
-// app/components/VillageSelector.tsx
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { IoChevronDown, IoAdd, IoClose } from 'react-icons/io5';
+import { IoChevronDown, IoAdd } from 'react-icons/io5';
 
 // Village 데이터 타입 정의
 type Village = {
@@ -63,6 +63,7 @@ export default function VillageSelector({
   onSelectVillage,
   maxVillages,
 }: VillageSelectorProps) {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
   // 현재 선택된 마을 정보 찾기
@@ -120,7 +121,7 @@ export default function VillageSelector({
             </div>
 
             <div className="px-2">
-              <button className="w-full flex items-center justify-center space-x-2 bg-green-500 text-white font-bold py-2 rounded-lg text-lg transition-transform active:scale-95">
+              <button className="w-full flex items-center justify-center space-x-2 bg-green-500 text-white font-bold py-2 rounded-lg text-lg transition-transform active:scale-95" onClick={() => router.replace('goal-setting')}>
                 <IoAdd className="w-6 h-6" />
                 <span>
                   마을 추가 ({villages.length}/{maxVillages})

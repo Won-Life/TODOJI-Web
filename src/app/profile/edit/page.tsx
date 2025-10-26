@@ -3,6 +3,7 @@ import type { NextPage } from 'next';
 import { BsCardImage } from 'react-icons/bs';
 import { useState } from 'react';
 import { EmailInputSection } from '@/app/components/EmailInputSection';
+import DetailHeader from '@/app/components/DetailHeader';
 
 // 각 입력 필드 섹션을 위한 컴포넌트
 const InputSection = ({ label, children }: { label: string; children: React.ReactNode }) => (
@@ -20,8 +21,9 @@ const EditProfilePage: NextPage = () => {
   const [emailDomain, setEmailDomain] = useState('naver.com');
 
   return (
-    <div className="flex flex-col min-h-screen items-center bg-white p-6">
-      <main className="flex flex-col w-full max-w-md flex-grow gap-6">
+    <div className="flex flex-col min-h-screen items-center bg-white">
+      <DetailHeader title={'계정 정보 수정'} />
+      <main className="flex flex-col w-full max-w-md flex-grow gap-6 p-6">
         <div className="self-center relative h-25 w-25 flex-shrink-0 rounded-md bg-gray-200">
           <div className="absolute flex h-6 w-6  rounded-full items-center justify-center bg-white bottom-1 right-1">
             <BsCardImage className="h-3 w-3 text-black" />
@@ -77,7 +79,7 @@ const EditProfilePage: NextPage = () => {
         </form>
       </main>
 
-      <footer className="mx-auto w-full max-w-md pt-8">
+      <footer className="mx-auto w-full max-w-md pt-8 p-6">
         <button
           type="submit"
           className="w-full rounded-xl bg-green-400 py-4 text-lg font-bold text-white transition-colors hover:bg-green-500"

@@ -10,8 +10,8 @@ interface ArchIndicatorProps {
 const ArchIndicator: React.FC<ArchIndicatorProps> = ({
   isActive,
   color = 'var(--main-color)',
-  width = 25,
-  height = 25,
+  width = 23,
+  height = 23,
 }) => {
   return (
     <div

@@ -110,7 +110,7 @@ export default function SubGoalStep({ stepNumber, subGoal, onChange, editMode = 
         value={title}
         onChange={(e) => onChange({ title: e.target.value })}
         placeholder={`세부목표를 입력하세요. (15자 이내)`}
-        className="w-full shadow-even bg-gray-100 rounded-md p-3 text-sm placeholder-gray-400 focus:outline-none"
+        className="w-full shadow-even rounded-md p-3 text-sm placeholder-gray-400 focus:outline-none"
       />
       <DeadlineSection
         deadline={deadline}
@@ -150,7 +150,7 @@ export default function SubGoalStep({ stepNumber, subGoal, onChange, editMode = 
             )}
           </div>
         </div>
-        <div className="mt-2 flex bg-gray-100 rounded-md p-1 text-sm">
+        <div className="mt-2 flex bg-gray-100 rounded-md p-1 text-xs">
           <button
             onClick={() => onChange({ criteriaType: 'self-check' })}
             className={`flex-1 rounded-md p-2 font-semibold transition-all ${

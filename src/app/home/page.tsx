@@ -11,13 +11,14 @@ import VillageDetailModalContent from '../components/VillageDetailModalContent';
 import NewGoalCreationModalContent from '../components/NewGoalCreationModalContent';
 import BuildingDetailModalContent, { BuildingStatus } from '../components/BuildingDetailModalContent';
 import { addRNMessageListener } from '../utils/webview';
+import { useOnboarding } from '../context/OnBoardingContext';
 
 export default function Home() {
   const [isSheetOpen, setIsSheetOpen] = useState(true);
   const [currentSnapRatio, setCurrentSnapRatio] = useState(0.04);
 
   // 온보딩 표시 여부 상태 (RN WebView로부터 받아옴)
-  const [showOnboarding, setShowOnboarding] = useState(false);
+  const { showOnboarding, setShowOnboarding } = useOnboarding();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTodo, setSelectedTodo] = useState(null);

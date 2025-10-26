@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { IoArrowBack } from 'react-icons/io5';
+import { IoIosArrowBack } from "react-icons/io";
 
 type DetailHeaderProps = {
   title: string;
@@ -25,7 +25,7 @@ export default function DetailHeader({ title }: DetailHeaderProps) {
         className="absolute left-4 p-2 text-gray-700"
         aria-label="Go back"
       >
-        <IoArrowBack className="w-6 h-6" />
+        <IoIosArrowBack className="w-6 h-6" />
       </button>
       <h1 className="text-lg font-bold text-gray-900">{title}</h1>
     </header>

@@ -5,6 +5,7 @@ import FinalGoalStep from '../components/goal-setting/FinalGoalStep';
 import SubGoalStep from '../components/goal-setting/SubGoalStep';
 
 import { FinalGoalData, SubGoalData } from '../types/goal-setting';
+import DetailHeader from '../components/DetailHeader';
 
 type Tab = 'final' | 'sub';
 

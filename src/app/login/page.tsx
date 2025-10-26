@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Mail, Loader2 } from 'lucide-react';
 import { EmailInputSection } from '../components/EmailInputSection';
+import { sendMessageToRN } from '../utils/webview';
 
 type Screen = 'initial' | 'login' | 'error' | 'loading' | 'signup' | 'home';
 
@@ -330,7 +331,17 @@ const LoginFlow: React.FC = () => {
   };
 
   const handleLogin = () => {
-    // 간단한 validation
+    // RN WebView로 로그인 이벤트 전송
+    sendMessageToRN({
+      type: 'LOGIN_REQUEST',
+      data: {
+        email,
+        password,
+        timestamp: new Date().toISOString(),
+      },
+    });
+
+    // 간단한 validation (테스트용)
     if (email === 'test@test.com' && password === 'password') {
       setCurrentScreen('loading');
     } else {

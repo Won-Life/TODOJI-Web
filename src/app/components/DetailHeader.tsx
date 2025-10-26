@@ -19,15 +19,15 @@ export default function DetailHeader({ title }: DetailHeaderProps) {
   };
 
   return (
-    <header className="sticky top-0 z-10 flex items-center justify-center py-4 bg-gray-50 border-b border-gray-200 w-full relative">
+    <header className="sticky top-0 z-10 flex items-center justify-center py-3 bg-gray-50 shadow-md w-full">
       <button
         onClick={handleBack}
-        className="absolute left-4 p-2 text-gray-700"
+        className="absolute left-2 p-2 text-gray-700"
         aria-label="Go back"
       >
-        <IoIosArrowBack className="w-6 h-6" />
+        <IoIosArrowBack className="w-4 h-4" />
       </button>
-      <h1 className="text-lg font-bold text-gray-900">{title}</h1>
+      <h1 className="text-base font-bold text-gray-900">{title}</h1>
     </header>
   );
 }

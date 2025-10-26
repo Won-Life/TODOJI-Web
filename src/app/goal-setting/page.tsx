@@ -252,7 +252,7 @@ export default function GoalSettingPage() {
         </div>
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 bg-white max-w-md p-4 pb-5 mx-auto">
+      <div className="fixed bottom-0 left-0 right-0 max-w-md p-4 pb-5 mx-auto">
         <button
           onClick={currentStep === STEPS.length ? handleComplete : handleNext}
           className="w-full py-2 text-white rounded-lg font-bold text-base"

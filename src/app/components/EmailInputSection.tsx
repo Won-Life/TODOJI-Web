@@ -39,7 +39,7 @@ export const EmailInputSection: React.FC<EmailInputSectionProps> = ({
 
   return (
     <div className="flex gap-2 items-center">
-      <div className="flex flex-[8] bg-gray-100 rounded-md">
+      <div className="flex-1 bg-gray-100 rounded-md">
         <input
           type="text"
           placeholder="이메일 입력"

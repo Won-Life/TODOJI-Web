@@ -5,6 +5,7 @@ import { useBottomSheetContext } from '../context/BottomSheetContext';
 import { FaChevronDown } from 'react-icons/fa';
 import { BuildingStatus } from './BuildingDetailModalContent';
 import { sendMessageToRN } from '../utils/webview';
+import { useRouter } from 'next/navigation';
 
 interface CityAreaProps {
   // 바텀 시트 Context에서 받아오는 값들 (Pixi.js 줌 인/아웃에 사용될 변수)
@@ -37,15 +38,17 @@ const CityAreaContents: React.FC<CityAreaProps> = ({
   // 온보딩 상태 관리
   const [onboardingStep, setOnboardingStep] = useState(0);
   const isLastStep = onboardingStep === ONBOARDING_MESSAGES.length - 1;
+  const route = useRouter();
 
   // 다음 버튼 클릭 핸들러
   const handleNextStep = () => {
     if (isLastStep) {
+      route.push('/goal-setting')
       // 마지막 단계에서 확인 버튼 클릭 시 RN으로 메시지 전송
-      sendMessageToRN({
-        type: 'ONBOARDING_COMPLETE',
-        data: { completedAt: new Date().toISOString() },
-      });
+      // sendMessageToRN({
+      //   type: 'ONBOARDING_COMPLETE',
+      //   data: { completedAt: new Date().toISOString() },
+      // });
     } else {
       setOnboardingStep((prev) => prev + 1);
     }

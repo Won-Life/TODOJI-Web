@@ -5,6 +5,7 @@ import SubGoalStep from '../components/goal-setting/SubGoalStep';
 import VillageNameStep from '../components/goal-setting/VillageNameStep';
 import { GoalSettingFormData, FinalGoalData, SubGoalData } from '../types/goal-setting';
 import { useRouter } from 'next/navigation';
+import { setShowOnboardingExternal } from '../context/OnBoardingContext';
 
 // 각 단계의 UI 컴포넌트들
 const STEPS = [

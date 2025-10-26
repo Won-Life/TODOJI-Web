@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import FinalGoalStep from '../components/goal-setting/FinalGoalStep';
 import SubGoalStep from '../components/goal-setting/SubGoalStep';
+
 import { FinalGoalData, SubGoalData } from '../types/goal-setting';
 
 type Tab = 'final' | 'sub';
@@ -80,6 +81,7 @@ export default function GoalManagementPage() {
 
   return (
     <div className="bg-gray-50 min-h-screen">
+      <DetailHeader title={"목표 상세"}/>
       <main className="flex-col space-y-5 container mx-auto p-4 max-w-sm">
         <header className="flex items-center space-x-2 mb-4">
           <button

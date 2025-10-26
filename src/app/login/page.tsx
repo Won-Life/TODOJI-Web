@@ -331,18 +331,16 @@ const LoginFlow: React.FC = () => {
   };
 
   const handleLogin = () => {
-    // RN WebView로 로그인 이벤트 전송
-    sendMessageToRN({
-      type: 'LOGIN_REQUEST',
-      data: {
-        email,
-        password,
-        timestamp: new Date().toISOString(),
-      },
-    });
-
     // 간단한 validation (테스트용)
-    if (email === 'test@test.com' && password === 'password') {
+    if (true) {
+      // RN WebView로 로그인 성공 이벤트 전송
+      sendMessageToRN({
+        type: 'LOGIN_SUCCESS',
+        data: {
+          accessToken: 'mock_access_token_' + Date.now(),
+          refreshToken: 'mock_refresh_token_' + Date.now(),
+        },
+      });
       setCurrentScreen('loading');
     } else {
       setCurrentScreen('error');

@@ -17,7 +17,7 @@ const ProfilePage: NextPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 font-sans">
       <DetailHeader title={'개인 정보'} showBackButton={false} />
-      <main className="mx-auto max-w-md p-4 pt-6">
+      <main className="mx-auto max-w-md py-4 px-3 pt-6">
         <header className="flex items-center justify-between">
           <h1 className="text-xl font-extrabold text-gray-900 pb-1">프로필</h1>
           <button aria-label="Settings">

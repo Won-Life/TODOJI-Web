@@ -23,7 +23,7 @@ const EditProfilePage: NextPage = () => {
   return (
     <div className="flex flex-col min-h-screen items-center bg-white">
       <DetailHeader title={'계정 정보 수정'} />
-      <main className="flex flex-col w-full max-w-md flex-grow gap-6 p-6">
+      <main className="flex flex-col w-full max-w-md flex-grow gap-6 py-6 px-3">
         <div className="self-center relative h-25 w-25 flex-shrink-0 rounded-md bg-gray-200">
           <div className="absolute flex h-6 w-6  rounded-full items-center justify-center bg-white bottom-1 right-1">
             <BsCardImage className="h-3 w-3 text-black" />
@@ -52,7 +52,7 @@ const EditProfilePage: NextPage = () => {
 
           <InputSection label="전화번호">
             <div className="flex gap-2 items-center">
-              <div className="flex flex-[8] items-center gap-2">
+              <div className="flex flex-1 min-w-0 overflow-hidden items-center gap-2">
                 <input
                   type="tel"
                   placeholder="전화번호를 입력해주세요"
@@ -61,7 +61,7 @@ const EditProfilePage: NextPage = () => {
               </div>
               <button
                 type="button"
-                className="flex-shrink-0 flex-[2] rounded-lg bg-gray-200 px-4 py-3 text-xs font-bold text-gray-600 transition-colors hover:bg-gray-300"
+                className="shrink-0 w-22 rounded-lg bg-gray-200 px-4 py-3 text-xs font-bold text-gray-600 transition-colors hover:bg-gray-300"
                 >
                 문자 인증
               </button>
